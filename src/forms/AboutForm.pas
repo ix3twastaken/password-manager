@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.ShellAPI, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage, dmImages;
 
 type
   TFormAbout = class(TForm)
@@ -23,7 +23,6 @@ type
     LinkLabel4: TLinkLabel;
     Label6: TLabel;
     LinkLabel5: TLinkLabel;
-    procedure FormCreate(Sender: TObject);
     procedure LinkLabel1LinkClick(Sender: TObject; const Link: string;
       LinkType: TSysLinkType);
     procedure LinkLabel2LinkClick(Sender: TObject; const Link: string;
@@ -42,12 +41,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TFormAbout.FormCreate(Sender: TObject);
-begin
-  Image1.Picture.LoadFromFile('../../../../assets/defenceIco.ico');
-end;
-
 
 procedure TFormAbout.LinkLabel1LinkClick(Sender: TObject; const Link: string;
   LinkType: TSysLinkType);

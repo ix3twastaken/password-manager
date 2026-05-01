@@ -2,14 +2,15 @@ program PasswordManager;
 
 uses
   Vcl.Forms,
-  AuthForm in '../forms/AuthForm.pas' {AuthorizationForm},
+  AuthForm in '..\forms\AuthForm.pas' {AuthorizationForm},
   Vcl.Themes,
   Vcl.Styles,
-  RegistrForm in '../forms/RegistrForm.pas' {RegistrationForm},
-  UI_Utils in '../utils/UI_Utils.pas',
-  TableForm in '../forms/TableForm.pas' {SpreadsheetForm},
-  AboutForm in '../forms/AboutForm.pas' {FormAbout},
-  Security_Utils in '../utils/Security_Utils.pas';
+  RegistrForm in '..\forms\RegistrForm.pas' {RegistrationForm},
+  UI_Utils in '..\utils\UI_Utils.pas',
+  TableForm in '..\forms\TableForm.pas' {SpreadsheetForm},
+  AboutForm in '..\forms\AboutForm.pas' {FormAbout},
+  Security_Utils in '..\utils\Security_Utils.pas',
+  dmImages in 'dmImages.pas' {DM: TDataModule};
 
 {$R *.res}
 
@@ -21,5 +22,6 @@ begin
   Application.CreateForm(TRegistrationForm, RegistrationForm);
   Application.CreateForm(TSpreadsheetForm, SpreadsheetForm);
   Application.CreateForm(TFormAbout, FormAbout);
+  Application.CreateForm(TDM, DM);
   Application.Run;
 end.

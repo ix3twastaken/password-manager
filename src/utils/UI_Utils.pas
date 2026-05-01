@@ -3,7 +3,7 @@ unit UI_Utils;
 interface
 
 uses Vcl.Graphics,  Vcl.Forms, Vcl.Grids, Vcl.StdCtrls, Vcl.ExtCtrls,
-     Vcl.Buttons;
+     Vcl.Buttons, dmImages;
 
 procedure ShowPassword(Password: TLabeledEdit; Btn: TBitBtn);
 procedure CalcColWidths(Grid: TStringGrid; Form: TForm);
@@ -22,28 +22,18 @@ end;
 
 
 procedure ShowPassword(Password: TLabeledEdit; Btn: TBitBtn);
-var GlyphShow, GlyphHide: TBitmap;
 begin
-  GlyphShow := TBitmap.Create;
-  GlyphHide := TBitmap.Create;
-  try
-    GlyphShow.LoadFromFile('../../../../assets/show.bmp');
-    GlyphHide.LoadFromFile('../../../../assets/hide.bmp');
+  Btn.Images := DM.VirtImgListPassword;
 
-    if Password.PasswordChar = #0 then
-      begin
-        Password.PasswordChar := '*';
-        Btn.Glyph.Assign(GlyphShow);
-      end
-    else if Password.PasswordChar = '*' then
-      begin
-        Password.PasswordChar := #0;
-        Btn.Glyph.Assign(GlyphHide);
-      end;
-
-  finally
-    GlyphShow.Free;
-    GlyphHide.Free;
+  if Password.PasswordChar = #0 then
+  begin
+    Password.PasswordChar := '*';
+    Btn.ImageName := 'show';
+  end
+  else
+  begin
+    Password.PasswordChar := #0;
+    Btn.ImageName := 'hide';
   end;
 end;
 
