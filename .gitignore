@@ -84,3 +84,6 @@ Win32/
 Win64/
 Debug/
 Release/
+
+
+!libs/libsodium/*.dll
