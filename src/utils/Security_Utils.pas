@@ -2,12 +2,24 @@ unit Security_Utils;
 
 interface
 
-uses System.RegularExpressions, System.SysUtils, Winapi.Windows, Vcl.Dialogs;
+uses System.RegularExpressions, System.SysUtils, System.IOUtils,
+     Winapi.Windows, Vcl.Dialogs,
+     Vcl.ExtCtrls, Sodium, BCrypt;
+
+type
+  TUserRecord = record
+    ID: Integer;
+    Login: String[50];
+    PasswordHash: String[72];
+    KdfSalt: array[0..15] of Byte;
+  end;
 
 function ValidatePassword(const password, login: string): string;
 function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
 function GetRandomBytes(var Buffer: TBytes): Boolean;
 function GeneratePassword(const Length: Integer): string;
+function GenerateSalt: TBytes;
+procedure UserRegistration(const UsersLogin, UsersPassword: string);
 
 implementation
 
@@ -80,6 +92,52 @@ begin
       Exit;
     end;
   Result := '';
+end;
+
+
+function GenerateSalt: TBytes;
+begin
+  SetLength(Result, 16);
+  randombytes_buf(@Result[0], Length(Result));
+end;
+
+
+procedure UserRegistration(const UsersLogin, UsersPassword: string);
+var
+  UsersFile: file of TUserRecord;
+  User: TUserRecord;
+  FilePath: string;
+  Salt: TBytes;
+begin
+  try
+    FilePath := TPath.GetHomePath + '\users.dat';
+    AssignFile(UsersFile, FilePath);
+
+    if FileExists(FilePath) then
+      Reset(UsersFile)
+    else
+      Rewrite(UsersFile);
+
+    FillChar(User, SizeOf(User), 0);
+
+    Seek(UsersFile, FileSize(UsersFile));
+    Salt := GenerateSalt;
+
+    with User do
+      begin
+        if FileSize(UsersFile) = 0 then
+          ID := 1
+        else
+          ID := FileSize(UsersFile) + 1;
+        Login := ShortString(UsersLogin);
+        PasswordHash := TBCrypt.HashPassword(UTF8String(UsersPassword));
+        Move(Salt[0], User.KdfSalt[0], 16);
+      end;
+
+    Write(UsersFile, User);
+  finally
+    CloseFile(UsersFile);
+  end;
 end;
 
 end.

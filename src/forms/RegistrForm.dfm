@@ -114,6 +114,7 @@ object RegistrationForm: TRegistrationForm
       Font.Height = -13
       Font.Name = 'Century Gothic'
       Font.Style = []
+      MaxLength = 50
       ParentFont = False
       TabOrder = 0
       Text = ''
@@ -138,6 +139,7 @@ object RegistrationForm: TRegistrationForm
       Font.Height = -13
       Font.Name = 'Century Gothic'
       Font.Style = []
+      MaxLength = 72
       ParentFont = False
       PasswordChar = '*'
       TabOrder = 1
@@ -163,6 +165,7 @@ object RegistrationForm: TRegistrationForm
       Font.Height = -13
       Font.Name = 'Century Gothic'
       Font.Style = []
+      MaxLength = 72
       ParentFont = False
       PasswordChar = '*'
       TabOrder = 2

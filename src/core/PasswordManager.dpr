@@ -1,7 +1,7 @@
 program PasswordManager;
 
 uses
-  Vcl.Forms,
+  Vcl.Forms, System.SysUtils,
   AuthForm in '..\forms\AuthForm.pas' {AuthorizationForm},
   Vcl.Themes,
   Vcl.Styles,
@@ -10,11 +10,17 @@ uses
   TableForm in '..\forms\TableForm.pas' {SpreadsheetForm},
   AboutForm in '..\forms\AboutForm.pas' {FormAbout},
   Security_Utils in '..\utils\Security_Utils.pas',
-  dmImages in 'dmImages.pas' {DM: TDataModule};
+  dmImages in 'dmImages.pas' {DM: TDataModule},
+  Bcrypt in '..\libs\bcrypt\Bcrypt.pas',
+  Sodium in '..\libs\libsodium\Sodium.pas';
 
 {$R *.res}
 
 begin
+
+  if sodium_init < 0 then
+    raise Exception.Create('libsodium не инициализировалась');
+
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   TStyleManager.TrySetStyle('Windows11 Modern Light');

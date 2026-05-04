@@ -1,10 +1,10 @@
-unit RegistrForm;
+п»їunit RegistrForm;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, System.RegularExpressions, Vcl.Graphics, Vcl.Controls,
+  System.Classes, System.RegularExpressions, System.IOUtils, Vcl.Graphics, Vcl.Controls,
   Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.ExtCtrls, Vcl.Buttons,
   dmImages;
 
@@ -34,12 +34,13 @@ type
   public
   end;
 
+
 var
   RegistrationForm: TRegistrationForm;
 
 implementation
 
-uses AuthForm, UI_Utils, Security_Utils;
+uses AuthForm, TableForm, UI_Utils, Security_Utils;
 
 {$R *.dfm}
 
@@ -61,24 +62,23 @@ var ErrorMessage: string;
 begin
   ErrorMessage := ValidatePassword(LabeledEditPassword1.Text,
                                    LabeledEditLogin.Text);
-
   if ((LabeledEditLogin.Text = '') or
      (LabeledEditPassword1.Text = '') or
      (LabeledEditPassword2.Text = '')) then
     begin
-      ShowError('Заполните все поля', ErrorsLabel);
+      ShowError('Р—Р°РїРѕР»РЅРёС‚Рµ РІСЃРµ РїРѕР»СЏ', ErrorsLabel);
       Exit;
     end;
 
   if Length(LabeledEditLogin.Text) < 5 then
     begin
-      ShowError('Логин должен быть не менее 5 символов', ErrorsLabel);
+      ShowError('Р›РѕРіРёРЅ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РЅРµ РјРµРЅРµРµ 5 СЃРёРјРІРѕР»РѕРІ', ErrorsLabel);
       Exit;
     end;
 
   if LabeledEditPassword1.Text <> LabeledEditPassword2.Text then
     begin
-      ShowError('Пароли должны совпадать', ErrorsLabel);
+      ShowError('РџР°СЂРѕР»Рё РґРѕР»Р¶РЅС‹ СЃРѕРІРїР°РґР°С‚СЊ', ErrorsLabel);
       Exit;
     end;
 
@@ -89,9 +89,18 @@ begin
     end
   else
     ErrorsLabel.Visible := False;
-    //хэширование и сохранение в файл
-
-
+    UserRegistration(LabeledEditLogin.Text, LabeledEditPassword1.Text);
+    ClearLabeledEdits([LabeledEditLogin, LabeledEditPassword1,
+                                         LabeledEditPassword2]);
+    if Application.MessageBox(
+      'Р РµРіРёСЃС‚СЂР°С†РёСЏ Р·Р°РІРµСЂС€РµРЅР° СѓСЃРїРµС€РЅРѕ!' + #13#10 +
+      'РќР°Р¶РјРёС‚Рµ OK, С‡С‚РѕР±С‹ РЅР°С‡Р°С‚СЊ СЂР°Р±РѕС‚Сѓ.',
+      'РЈСЃРїРµС€РЅР°СЏ СЂРµРіРёСЃС‚СЂР°С†РёСЏ',
+      MB_OK or MB_ICONINFORMATION
+    ) = IDOK then
+    begin
+      SwitchForms(SpreadsheetForm, RegistrationForm);
+    end;
 end;
 
 
@@ -132,4 +141,6 @@ procedure TRegistrationForm.FormClose(Sender: TObject;
 begin
   Application.Terminate;
 end;
+
+
 end.

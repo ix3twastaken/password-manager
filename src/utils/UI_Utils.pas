@@ -9,6 +9,7 @@ procedure ShowPassword(Password: TLabeledEdit; Btn: TBitBtn);
 procedure CalcColWidths(Grid: TStringGrid; Form: TForm);
 procedure SwitchForms(FormToShow: TForm; FormToHide: TForm);
 procedure ShowError(const ErrorMsg: string; ErrLabel: TLabel);
+procedure ClearLabeledEdits(const Labeles: array of TLabeledEdit);
 
 implementation
 
@@ -60,5 +61,13 @@ begin
   FormToShow.ShowInTaskBar := True;
   FormToShow.Show;
   FormToShow.SetFocus;
+end;
+
+
+procedure ClearLabeledEdits(const Labeles: array of TLabeledEdit);
+var Lbl: TLabeledEdit;
+begin
+  for Lbl in Labeles do
+    Lbl.Clear;
 end;
 end.

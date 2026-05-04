@@ -61,6 +61,7 @@ object AuthorizationForm: TAuthorizationForm
       Font.Height = -13
       Font.Name = 'Century Gothic'
       Font.Style = []
+      MaxLength = 50
       ParentFont = False
       TabOrder = 0
       Text = ''
@@ -85,6 +86,7 @@ object AuthorizationForm: TAuthorizationForm
       Font.Height = -13
       Font.Name = 'Century Gothic'
       Font.Style = []
+      MaxLength = 72
       ParentFont = False
       PasswordChar = '*'
       TabOrder = 1
