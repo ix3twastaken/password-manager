@@ -86,4 +86,4 @@ Debug/
 Release/
 
 
-!libs/libsodium/*.dll
+!src/core/*.dll
