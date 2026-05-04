@@ -23,13 +23,10 @@ type
     LinkLabel4: TLinkLabel;
     Label6: TLabel;
     LinkLabel5: TLinkLabel;
+    LinkLabel6: TLinkLabel;
+    Label7: TLabel;
+    LinkLabel7: TLinkLabel;
     procedure LinkLabel1LinkClick(Sender: TObject; const Link: string;
-      LinkType: TSysLinkType);
-    procedure LinkLabel2LinkClick(Sender: TObject; const Link: string;
-      LinkType: TSysLinkType);
-    procedure LinkLabel3LinkClick(Sender: TObject; const Link: string;
-      LinkType: TSysLinkType);
-    procedure LinkLabel4LinkClick(Sender: TObject; const Link: string;
       LinkType: TSysLinkType);
   private
   public
@@ -43,27 +40,6 @@ implementation
 {$R *.dfm}
 
 procedure TFormAbout.LinkLabel1LinkClick(Sender: TObject; const Link: string;
-  LinkType: TSysLinkType);
-begin
-  ShellExecute(0, 'open', PChar(Link), nil, nil, SW_SHOWNORMAL);
-end;
-
-
-procedure TFormAbout.LinkLabel2LinkClick(Sender: TObject; const Link: string;
-  LinkType: TSysLinkType);
-begin
-  ShellExecute(0, 'open', PChar(Link), nil, nil, SW_SHOWNORMAL);
-end;
-
-
-procedure TFormAbout.LinkLabel3LinkClick(Sender: TObject; const Link: string;
-  LinkType: TSysLinkType);
-begin
-  ShellExecute(0, 'open', PChar(Link), nil, nil, SW_SHOWNORMAL);
-end;
-
-
-procedure TFormAbout.LinkLabel4LinkClick(Sender: TObject; const Link: string;
   LinkType: TSysLinkType);
 begin
   ShellExecute(0, 'open', PChar(Link), nil, nil, SW_SHOWNORMAL);
