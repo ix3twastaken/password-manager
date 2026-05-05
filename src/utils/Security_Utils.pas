@@ -128,7 +128,6 @@ var
 begin
   try
     FilePath := CreateDirectory();
-    ShowMessage(FilePath);
     AssignFile(UsersFile, FilePath);
 
     if FileExists(FilePath) then
@@ -157,5 +156,9 @@ begin
     CloseFile(UsersFile);
   end;
 end;
+
+
+
+
 
 end.
