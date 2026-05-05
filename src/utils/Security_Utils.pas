@@ -3,6 +3,7 @@ unit Security_Utils;
 interface
 
 uses System.RegularExpressions, System.SysUtils, System.IOUtils,
+     System.Generics.Collections,
      Winapi.Windows, Vcl.Dialogs,
      Vcl.ExtCtrls, Sodium, BCrypt;
 
@@ -17,6 +18,7 @@ type
 function ValidatePassword(const password, login: string): string;
 function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
 function GetRandomBytes(var Buffer: TBytes): Boolean;
+function IsUserExists(const Login: string): boolean;
 function GeneratePassword(const Length: Integer): string;
 function GenerateSalt: TBytes;
 function CreateDirectory: string;
@@ -33,6 +35,48 @@ function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
 function GetRandomBytes(var Buffer: TBytes): Boolean;
 begin
   Result := SystemFunction036(@Buffer[0], Length(Buffer));
+end;
+
+
+function IsUserExists(const Login: string): boolean;
+var
+  UsersFile: file of TUserRecord;
+  User: TUserRecord;
+  FilePath: string;
+  UsersList: TList<string>;
+begin
+  UsersList := TList<string>.Create;
+  try
+    FilePath := CreateDirectory();
+    AssignFile(UsersFile, FilePath);
+
+    if FileExists(FilePath) then
+      Reset(UsersFile)
+    else
+      begin
+        Result := False;
+        Exit;
+      end;
+
+
+    while not eof(UsersFile) do
+      begin
+        Read(UsersFile, User);
+        with User do
+          begin
+            UsersList.Add(Login);
+          end;
+      end;
+
+    if UsersList.Contains(Login) then
+      Result := True
+    else
+      Result := False;
+
+  finally
+    UsersList.Free;
+    CloseFile(UsersFile);
+  end;
 end;
 
 
@@ -58,6 +102,12 @@ end;
 
 function ValidatePassword(const password, login: string): string;
 begin
+  if IsUserExists(login) then
+    begin
+      Result := 'Пользователь с таким логином уже существует';
+      Exit;
+    end;
+
   if not TRegEx.IsMatch(Password, '^.{16,}$') then
     begin
       Result := 'Пароль должен быть не менее 16 символов';
@@ -156,9 +206,5 @@ begin
     CloseFile(UsersFile);
   end;
 end;
-
-
-
-
 
 end.
