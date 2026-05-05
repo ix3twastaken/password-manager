@@ -4,7 +4,7 @@ object AuthorizationForm: TAuthorizationForm
   AutoSize = True
   BorderStyle = bsSingle
   Caption = #1040#1074#1090#1086#1088#1080#1079#1072#1094#1080#1103
-  ClientHeight = 282
+  ClientHeight = 301
   ClientWidth = 291
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -36,15 +36,32 @@ object AuthorizationForm: TAuthorizationForm
     Left = 20
     Top = 58
     Width = 251
-    Height = 204
+    Height = 223
     Margins.Left = 20
     Margins.Top = 5
     Margins.Right = 20
     Margins.Bottom = 20
     TabOrder = 0
+    object ErrorsLabel: TLabel
+      Left = 97
+      Top = 142
+      Width = 56
+      Height = 16
+      Caption = 'ErrorsLabel'
+      Color = clRed
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Century Gothic'
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+      Visible = False
+      StyleElements = []
+    end
     object LabeledEditLogin: TLabeledEdit
-      Left = 29
-      Top = 35
+      Left = 30
+      Top = 43
       Width = 191
       Height = 25
       EditLabel.Width = 39
@@ -68,8 +85,8 @@ object AuthorizationForm: TAuthorizationForm
       OnKeyPress = LabeledEditLoginKeyPress
     end
     object LabeledEditPassword: TLabeledEdit
-      Left = 29
-      Top = 90
+      Left = 30
+      Top = 98
       Width = 168
       Height = 25
       EditLabel.Width = 49
@@ -94,8 +111,8 @@ object AuthorizationForm: TAuthorizationForm
       OnKeyPress = LabeledEditPasswordKeyPress
     end
     object Button2: TButton
-      Left = 76
-      Top = 151
+      Left = 81
+      Top = 164
       Width = 89
       Height = 33
       Cursor = crHandPoint
@@ -111,7 +128,7 @@ object AuthorizationForm: TAuthorizationForm
     end
     object LinkLabel1: TLinkLabel
       Left = 116
-      Top = 115
+      Top = 123
       Width = 104
       Height = 20
       Cursor = crHandPoint
@@ -129,7 +146,7 @@ object AuthorizationForm: TAuthorizationForm
     end
     object BtnShowPassword: TBitBtn
       Left = 195
-      Top = 90
+      Top = 98
       Width = 25
       Height = 25
       Cursor = crHandPoint

@@ -60,34 +60,17 @@ end;
 procedure TRegistrationForm.CreateProfileBtnClick(Sender: TObject);
 var ErrorMessage: string;
 begin
-  ErrorMessage := ValidatePassword(LabeledEditPassword1.Text,
-                                   LabeledEditLogin.Text);
-  if ((LabeledEditLogin.Text = '') or
-     (LabeledEditPassword1.Text = '') or
-     (LabeledEditPassword2.Text = '')) then
-    begin
-      ShowError('Заполните все поля', ErrorsLabel);
-      Exit;
-    end;
-
-  if Length(LabeledEditLogin.Text) < 5 then
-    begin
-      ShowError('Логин должен быть не менее 5 символов', ErrorsLabel);
-      Exit;
-    end;
-
-  if LabeledEditPassword1.Text <> LabeledEditPassword2.Text then
-    begin
-      ShowError('Пароли должны совпадать', ErrorsLabel);
-      Exit;
-    end;
-
+  ErrorMessage := ValidateRegistration(LabeledEditPassword1.Text,
+                                       LabeledEditPassword2.Text,
+                                       LabeledEditLogin.Text);
+  // Проверка правильно ли введены данные
   if ErrorMessage <> '' then
     begin
       ShowError(ErrorMessage, ErrorsLabel);
       Exit;
     end
   else
+    // Вход в систему
     ErrorsLabel.Visible := False;
     UserRegistration(LabeledEditLogin.Text, LabeledEditPassword1.Text);
     ClearLabeledEdits([LabeledEditLogin, LabeledEditPassword1,
@@ -106,10 +89,11 @@ end;
 
 procedure TRegistrationForm.GeneratePasswordBtnClick(Sender: TObject);
 begin
+  // Генерирует пароль до тех пор, пока он не будет соответствовать требованиям
   repeat
     LabeledEditPassword1.Text := GeneratePassword(16);
-  until ValidatePassword(LabeledEditPassword1.Text,
-                         LabeledEditLogin.Text) = '';
+  until TRegEx.IsMatch(LabeledEditPassword1.Text,
+  '^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=]).{16,}$'); // Требования к паролю
   LabeledEditPassword2.Text := LabeledEditPassword1.Text;
 end;
 

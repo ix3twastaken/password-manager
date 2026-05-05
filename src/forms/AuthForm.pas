@@ -17,6 +17,7 @@ type
     Button2: TButton;
     LinkLabel1: TLinkLabel;
     BtnShowPassword: TBitBtn;
+    ErrorsLabel: TLabel;
     procedure LinkLabel1Click(Sender: TObject);
     procedure BtnShowPasswordClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -31,7 +32,7 @@ var
 
 implementation
 
-uses RegistrForm, UI_Utils, TableForm;
+uses RegistrForm, UI_Utils, TableForm, Security_Utils;
 
 {$R *.dfm}
 
@@ -42,8 +43,17 @@ end;
 
 
 procedure TAuthorizationForm.Button2Click(Sender: TObject);
+var ErrorMessage: string;
 begin
-  SwitchForms(SpreadsheetForm, AuthorizationForm);
+  ErrorMessage := ValidateAuthorization(LabeledEditPassword.Text,
+                                        LabeledEditLogin.Text);
+  if ErrorMessage <> '' then
+    begin
+      ShowError(ErrorMessage, ErrorsLabel);
+      Exit;
+    end
+  else
+    SwitchForms(SpreadsheetForm, AuthorizationForm);
 end;
 
 
