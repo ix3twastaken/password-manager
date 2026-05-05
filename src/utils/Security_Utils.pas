@@ -15,7 +15,7 @@ type
     KdfSalt: array[0..15] of Byte;
   end;
 
-function ValidatePassword(const password, login: string): string;
+function ValidateRegistration(const password, login: string): string;
 function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
 function GetRandomBytes(var Buffer: TBytes): Boolean;
 function IsUserExists(const Login: string): boolean;
@@ -58,7 +58,6 @@ begin
         Exit;
       end;
 
-
     while not eof(UsersFile) do
       begin
         Read(UsersFile, User);
@@ -100,7 +99,7 @@ begin
 end;
 
 
-function ValidatePassword(const password, login: string): string;
+function ValidateRegistration(const password, login: string): string;
 begin
   if IsUserExists(login) then
     begin
