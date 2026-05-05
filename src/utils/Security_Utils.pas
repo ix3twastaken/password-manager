@@ -10,7 +10,7 @@ type
   TUserRecord = record
     ID: Integer;
     Login: String[50];
-    PasswordHash: String[72];
+    PasswordHash: String[60];
     KdfSalt: array[0..15] of Byte;
   end;
 
@@ -19,7 +19,9 @@ function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
 function GetRandomBytes(var Buffer: TBytes): Boolean;
 function GeneratePassword(const Length: Integer): string;
 function GenerateSalt: TBytes;
+function CreateDirectory: string;
 procedure UserRegistration(const UsersLogin, UsersPassword: string);
+
 
 implementation
 
@@ -102,6 +104,21 @@ begin
 end;
 
 
+function CreateDirectory: string;
+begin
+  Result := TPath.GetHomePath;
+  if not DirectoryExists(Result + '\Password Manager') then
+    begin
+      CreateDir(Result + '\Password Manager');
+      Result := Result + '\Password Manager\users.dat';
+    end
+  else
+    begin
+      Result := Result + '\Password Manager\users.dat';
+    end;
+end;
+
+
 procedure UserRegistration(const UsersLogin, UsersPassword: string);
 var
   UsersFile: file of TUserRecord;
@@ -110,7 +127,8 @@ var
   Salt: TBytes;
 begin
   try
-    FilePath := TPath.GetHomePath + '\users.dat';
+    FilePath := CreateDirectory();
+    ShowMessage(FilePath);
     AssignFile(UsersFile, FilePath);
 
     if FileExists(FilePath) then
@@ -129,8 +147,8 @@ begin
           ID := 1
         else
           ID := FileSize(UsersFile) + 1;
-        Login := ShortString(UsersLogin);
-        PasswordHash := TBCrypt.HashPassword(UTF8String(UsersPassword));
+        Login := UsersLogin;
+        PasswordHash := TBCrypt.HashPassword(UsersPassword);
         Move(Salt[0], User.KdfSalt[0], 16);
       end;
 
