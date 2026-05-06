@@ -1,8 +1,8 @@
-unit UI_Utils;
+unit UIHelpers;
 
 interface
 
-uses Vcl.Graphics,  Vcl.Forms, Vcl.Grids, Vcl.StdCtrls, Vcl.ExtCtrls,
+uses System.SysUtils, Vcl.Graphics,  Vcl.Forms, Vcl.Grids, Vcl.StdCtrls, Vcl.ExtCtrls,
      Vcl.Buttons, dmImages;
 
 procedure ShowPassword(Password: TLabeledEdit; Btn: TBitBtn);
@@ -10,6 +10,7 @@ procedure CalcColWidths(Grid: TStringGrid; Form: TForm);
 procedure SwitchForms(FormToShow: TForm; FormToHide: TForm);
 procedure ShowError(const ErrorMsg: string; ErrLabel: TLabel);
 procedure ClearLabeledEdits(const Labeles: array of TLabeledEdit);
+procedure SetRowAndColumnNames(Grid: TStringGrid);
 
 implementation
 
@@ -69,5 +70,17 @@ var Lbl: TLabeledEdit;
 begin
   for Lbl in Labeles do
     Lbl.Clear;
+end;
+
+
+procedure SetRowAndColumnNames(Grid: TStringGrid);
+begin
+  Grid.Cells[1, 0] := 'Название сервиса';
+  Grid.Cells[2, 0] := 'Логин';
+  Grid.Cells[3, 0] := 'Пароль';
+  Grid.Cells[4, 0] := 'Примечание';
+
+  for var i := 1 to Grid.RowCount - 1 do
+    Grid.Cells[0, i] := IntToStr(i);
 end;
 end.

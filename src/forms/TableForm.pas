@@ -32,7 +32,7 @@ var
 
 implementation
 
-uses UI_Utils, AuthForm, AboutForm;
+uses UIHelpers, AuthForm, AboutForm;
 
 {$R *.dfm}
 
@@ -43,14 +43,7 @@ end;
 
 procedure TSpreadsheetForm.FormCreate(Sender: TObject);
 begin
-  DataStringGrid.Cells[1, 0] := 'Название сервиса';
-  DataStringGrid.Cells[2, 0] := 'Логин';
-  DataStringGrid.Cells[3, 0] := 'Пароль';
-  DataStringGrid.Cells[4, 0] := 'Примечание';
-
-  for var i := 1 to DataStringGrid.RowCount - 1 do
-      DataStringGrid.Cells[0, i] := IntToStr(i);
-
+  SetRowAndColumnNames(DataStringGrid);
   CalcColWidths(DataStringGrid, SpreadsheetForm);
 end;
 

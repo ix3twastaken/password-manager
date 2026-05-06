@@ -9,13 +9,13 @@ uses
   RegisterForm in '..\forms\RegisterForm.pas' {RegistrationForm},
   TableForm in '..\forms\TableForm.pas' {SpreadsheetForm},
   AboutForm in '..\forms\AboutForm.pas' {FormAbout},
-  UI_Utils in '..\utils\UI_Utils.pas',
   Bcrypt in '..\libs\bcrypt\Bcrypt.pas',
   Sodium in '..\libs\libsodium\Sodium.pas',
   dmImages in '..\data\dmImages.pas' {DM: TDataModule},
   PasswordService in '..\core\PasswordService.pas',
   FileSystem in '..\utils\FileSystem.pas',
-  Crypto in '..\utils\Crypto.pas';
+  Crypto in '..\utils\Crypto.pas',
+  UIHelpers in '..\utils\UIHelpers.pas';
 
 {$R *.res}
 
