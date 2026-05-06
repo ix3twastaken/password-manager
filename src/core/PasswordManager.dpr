@@ -1,19 +1,18 @@
 program PasswordManager;
 
 uses
-  Vcl.Forms,
   System.SysUtils,
+  Vcl.Forms, Vcl.Themes, Vcl.Styles,
   AuthForm in '..\forms\AuthForm.pas' {AuthorizationForm},
-  Vcl.Themes,
-  Vcl.Styles,
-  UI_Utils in '..\utils\UI_Utils.pas',
+  RegisterForm in '..\forms\RegisterForm.pas' {RegistrationForm},
   TableForm in '..\forms\TableForm.pas' {SpreadsheetForm},
   AboutForm in '..\forms\AboutForm.pas' {FormAbout},
+  UI_Utils in '..\utils\UI_Utils.pas',
   Security_Utils in '..\utils\Security_Utils.pas',
-  dmImages in 'dmImages.pas' {DM: TDataModule},
   Bcrypt in '..\libs\bcrypt\Bcrypt.pas',
   Sodium in '..\libs\libsodium\Sodium.pas',
-  RegisterForm in '..\forms\RegisterForm.pas' {RegistrationForm};
+
+  dmImages in '..\data\dmImages.pas' {DM: TDataModule};
 
 {$R *.res}
 
@@ -26,9 +25,9 @@ begin
   Application.MainFormOnTaskbar := True;
   TStyleManager.TrySetStyle('Windows11 Modern Light');
   Application.CreateForm(TAuthorizationForm, AuthorizationForm);
+  Application.CreateForm(TRegistrationForm, RegistrationForm);
   Application.CreateForm(TSpreadsheetForm, SpreadsheetForm);
   Application.CreateForm(TFormAbout, FormAbout);
   Application.CreateForm(TDM, DM);
-  Application.CreateForm(TRegistrationForm, RegistrationForm);
   Application.Run;
 end.
