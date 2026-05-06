@@ -40,7 +40,7 @@ var
 
 implementation
 
-uses AuthForm, TableForm, UI_Utils, Security_Utils;
+uses AuthForm, TableForm, UI_Utils, PasswordService, Crypto;
 
 {$R *.dfm}
 
