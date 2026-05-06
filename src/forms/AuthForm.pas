@@ -32,7 +32,7 @@ var
 
 implementation
 
-uses RegistrForm, UI_Utils, TableForm, Security_Utils;
+uses RegisterForm, UI_Utils, TableForm, Security_Utils;
 
 {$R *.dfm}
 

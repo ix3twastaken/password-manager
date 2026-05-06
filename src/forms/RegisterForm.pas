@@ -1,4 +1,4 @@
-﻿unit RegistrForm;
+﻿unit RegisterForm;
 
 interface
 
