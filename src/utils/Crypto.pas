@@ -15,6 +15,7 @@ type
   end;
 
 
+procedure DeriveMasterKey(const Password: AnsiString; const Salt: array of Byte; out Key: TBytes);
 function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
 function GetRandomBytes(var Buffer: TBytes): Boolean;
 function GeneratePassword(const Length: Integer): string;
@@ -22,6 +23,22 @@ function GenerateSalt: TBytes;
 
 
 implementation
+
+
+procedure DeriveMasterKey(const Password: AnsiString; const Salt: array of Byte; out Key: TBytes);
+begin
+  SetLength(Key, 32); // 256-bit ключ
+
+  if crypto_pwhash(
+    @Key[0], Length(Key),
+    PAnsiChar(Password), Length(Password),
+    @Salt[0],
+    3,                // opslimit
+    64 * 1024 * 1024, // memlimit
+    2 // crypto_pwhash_ALG_ARGON2ID13
+  ) <> 0 then
+    raise Exception.Create('Argon2 failed');
+end;
 
 
 function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;

@@ -5,7 +5,7 @@ interface
 uses System.RegularExpressions, System.SysUtils,
      System.Generics.Collections,
      Winapi.Windows, Vcl.Dialogs,
-     Vcl.ExtCtrls, BCrypt, Crypto, FileSystem;
+     Vcl.ExtCtrls, BCrypt, Crypto, FileSystem, SessionManager;
 
 type
     TUserRecord = record
@@ -77,6 +77,7 @@ var
   FilePath: string;
   UsersFile: file of TUserRecord;
   User: TUserRecord;
+  Key: TBytes;
 begin
   Result := False;
 
@@ -106,6 +107,11 @@ begin
             Write(UsersFile, User);
           end;
 
+          DeriveMasterKey(Password, User.KdfSalt, Key);
+
+          FillChar(Key[0], Length(Key), 0);
+          SetLength(Key, 0);
+
           Exit(True);
         end;
 
@@ -125,7 +131,7 @@ var
   UsersFile: file of TUserRecord;
   User: TUserRecord;
   FilePath: string;
-  Salt: TBytes;
+  Salt, Key: TBytes;
   FileOpened: boolean;
 begin
   FileOpened := False;
@@ -159,6 +165,11 @@ begin
         PasswordHash := TBCrypt.HashPassword(UsersPassword);
         Move(Salt[0], User.KdfSalt[0], 16);
       end;
+
+    DeriveMasterKey(UsersPassword, User.KdfSalt, Key);
+
+    FillChar(Key[0], Length(Key), 0);
+    SetLength(Key, 0);
 
     Write(UsersFile, User);
   finally
