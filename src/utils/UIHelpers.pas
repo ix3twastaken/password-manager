@@ -58,7 +58,7 @@ end;
 
 procedure SwitchForms(FormToShow: TForm; FormToHide: TForm);
 begin
-  FormToHide.Visible := False;
+  FormToHide.Hide;
   FormToShow.ShowInTaskBar := True;
   FormToShow.Show;
   FormToShow.SetFocus;

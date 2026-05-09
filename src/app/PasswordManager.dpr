@@ -15,7 +15,8 @@ uses
   PasswordService in '..\core\PasswordService.pas',
   FileSystem in '..\utils\FileSystem.pas',
   Crypto in '..\utils\Crypto.pas',
-  UIHelpers in '..\utils\UIHelpers.pas';
+  UIHelpers in '..\utils\UIHelpers.pas',
+  SessionManager in '..\core\SessionManager.pas';
 
 {$R *.res}
 
@@ -33,4 +34,6 @@ begin
   Application.CreateForm(TFormAbout, FormAbout);
   Application.CreateForm(TDM, DM);
   Application.Run;
+
+
 end.

@@ -108,6 +108,7 @@ begin
           end;
 
           DeriveMasterKey(Password, User.KdfSalt, Key);
+          TSessionManager.Instance.LogIn(Key);
 
           FillChar(Key[0], Length(Key), 0);
           SetLength(Key, 0);
@@ -167,6 +168,7 @@ begin
       end;
 
     DeriveMasterKey(UsersPassword, User.KdfSalt, Key);
+    TSessionManager.Instance.LogIn(Key);
 
     FillChar(Key[0], Length(Key), 0);
     SetLength(Key, 0);

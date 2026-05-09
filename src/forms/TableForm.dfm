@@ -16,6 +16,9 @@ object SpreadsheetForm: TSpreadsheetForm
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  OnMouseMove = FormMouseMove
+  OnMouseWheel = FormMouseWheel
   OnResize = FormResize
   TextHeight = 15
   object DataStringGrid: TStringGrid
@@ -87,11 +90,18 @@ object SpreadsheetForm: TSpreadsheetForm
       end
       object N5: TMenuItem
         Caption = #1042#1099#1093#1086#1076
+        OnClick = N5Click
       end
     end
     object N1: TMenuItem
       Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
       OnClick = N1Click
     end
+  end
+  object ActivityTimer: TTimer
+    Enabled = False
+    Interval = 10000
+    OnTimer = ActivityTimerTimer
+    Left = 784
   end
 end

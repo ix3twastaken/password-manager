@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   System.RegularExpressions, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
-  Vcl.Buttons, dmImages;
+  Vcl.Buttons, dmImages, SessionManager;
 
 type
   TAuthorizationForm = class(TForm)
@@ -23,6 +23,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure LabeledEditLoginKeyPress(Sender: TObject; var Key: Char);
     procedure LabeledEditPasswordKeyPress(Sender: TObject; var Key: Char);
+    procedure FormDestroy(Sender: TObject);
   private
   public
   end;
@@ -54,8 +55,15 @@ begin
     end
   else
     SwitchForms(SpreadsheetForm, AuthorizationForm);
+    SpreadsheetForm.ActivityTimer.Enabled := True;
+    ClearLabeledEdits([LabeledEditLogin, LabeledEditPassword]);
 end;
 
+
+procedure TAuthorizationForm.FormDestroy(Sender: TObject);
+begin
+  TSessionManager.Instance.Free;
+end;
 
 procedure TAuthorizationForm.LabeledEditLoginKeyPress(Sender: TObject;
   var Key: Char);

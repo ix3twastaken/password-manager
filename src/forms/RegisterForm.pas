@@ -83,6 +83,7 @@ begin
     ) = IDOK then
     begin
       SwitchForms(SpreadsheetForm, RegistrationForm);
+      SpreadsheetForm.ActivityTimer.Enabled := True;
     end;
 end;
 

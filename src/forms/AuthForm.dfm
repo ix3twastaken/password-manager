@@ -14,6 +14,7 @@ object AuthorizationForm: TAuthorizationForm
   Font.Style = []
   Position = poScreenCenter
   OnClick = BtnShowPasswordClick
+  OnDestroy = FormDestroy
   TextHeight = 15
   object Label1: TLabel
     AlignWithMargins = True
