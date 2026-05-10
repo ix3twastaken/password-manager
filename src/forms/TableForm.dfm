@@ -83,19 +83,19 @@ object SpreadsheetForm: TSpreadsheetForm
   end
   object MainMenu1: TMainMenu
     Left = 808
-    object N3: TMenuItem
+    object MM_Profile: TMenuItem
       Caption = #1055#1088#1086#1092#1080#1083#1100
-      object N4: TMenuItem
+      object MM_ChangePassword: TMenuItem
         Caption = #1057#1084#1077#1085#1072' '#1087#1072#1088#1086#1083#1103
       end
-      object N5: TMenuItem
+      object MM_Exit: TMenuItem
         Caption = #1042#1099#1093#1086#1076
-        OnClick = N5Click
+        OnClick = MM_ExitClick
       end
     end
-    object N1: TMenuItem
+    object MM_About: TMenuItem
       Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
-      OnClick = N1Click
+      OnClick = MM_AboutClick
     end
   end
   object ActivityTimer: TTimer

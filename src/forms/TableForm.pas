@@ -15,17 +15,17 @@ type
     SortAtoZBtn: TBitBtn;
     SortZtoABtn: TBitBtn;
     MainMenu1: TMainMenu;
-    N1: TMenuItem;
-    N3: TMenuItem;
-    N4: TMenuItem;
-    N5: TMenuItem;
+    MM_About: TMenuItem;
+    MM_Profile: TMenuItem;
+    MM_ChangePassword: TMenuItem;
+    MM_Exit: TMenuItem;
     ActivityTimer: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure N1Click(Sender: TObject);
+    procedure MM_AboutClick(Sender: TObject);
     procedure ActivityTimerTimer(Sender: TObject);
-    procedure N5Click(Sender: TObject);
+    procedure MM_ExitClick(Sender: TObject);
     procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormMouseWheel(Sender: TObject; Shift: TShiftState;
@@ -83,24 +83,24 @@ begin
 end;
 
 
-procedure TSpreadsheetForm.N1Click(Sender: TObject);
+procedure TSpreadsheetForm.MM_AboutClick(Sender: TObject);
 begin
   FormAbout.Show;
   FormAbout.ShowInTaskBar := True;
 end;
 
 
-procedure TSpreadsheetForm.N5Click(Sender: TObject);
+procedure TSpreadsheetForm.MM_ExitClick(Sender: TObject);
 begin
   TSessionManager.Instance.LogOut;
   SwitchForms(AuthorizationForm, SpreadsheetForm);
   ActivityTimer.Enabled := False;
+  ShowError('', AuthorizationForm.ErrorsLabel);
 end;
 
 
 procedure TSpreadsheetForm.ActivityTimerTimer(Sender: TObject);
 begin
-
   if not TSessionManager.Instance.IsSessionActive then
     begin
       if FormAbout.Visible then
@@ -110,6 +110,5 @@ begin
       ShowError('Ваша сессия истекла', AuthorizationForm.ErrorsLabel);
       SwitchForms(AuthorizationForm, SpreadsheetForm);
     end;
-
 end;
 end.
