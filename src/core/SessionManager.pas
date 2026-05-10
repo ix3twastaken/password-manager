@@ -88,7 +88,7 @@ constructor TSessionManager.Create;
 begin
   inherited;
   FSession := TSessionState.Create;
-  FTimeOutMinutes := 1;
+  FTimeOutMinutes := 10;
 end;
 
 
