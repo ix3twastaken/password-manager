@@ -44,10 +44,7 @@ begin
         FileOpened := True;
       end
     else
-      begin
-        Result := False;
-        Exit;
-      end;
+      Exit(False);
 
     while not eof(UsersFile) do
       begin
@@ -59,9 +56,9 @@ begin
       end;
 
     if UsersList.Contains(Login) then
-      Result := True
+      Exit(True)
     else
-      Result := False;
+      Exit(False);
 
   finally
     UsersList.Free;
@@ -89,38 +86,34 @@ begin
   Reset(UsersFile);
   try
     while not EOF(UsersFile) do
-    begin
-      Read(UsersFile, User);
-
-      if User.Login = UsersLogin then
       begin
+        Read(UsersFile, User);
 
-        if TBCrypt.CheckPassword(Password, User.PasswordHash, passwordRehashNeeded) then
-        begin
-          Result := True;
-
-          if passwordRehashNeeded then
+        if User.Login = UsersLogin then
           begin
-            User.PasswordHash := TBCrypt.HashPassword(Password);
 
-            Seek(UsersFile, FilePos(UsersFile) - 1);
-            Write(UsersFile, User);
+            if TBCrypt.CheckPassword(Password, User.PasswordHash, passwordRehashNeeded) then
+              begin
+                if passwordRehashNeeded then
+                  begin
+                    User.PasswordHash := TBCrypt.HashPassword(Password);
+
+                    Seek(UsersFile, FilePos(UsersFile) - 1);
+                    Write(UsersFile, User);
+                  end;
+
+                DeriveMasterKey(Password, User.KdfSalt, Key);
+                TSessionManager.Instance.LogIn(Key);
+
+                FillChar(Key[0], Length(Key), 0);
+                SetLength(Key, 0);
+
+                Exit(True);
+              end;
+
+            Exit(False);
           end;
-
-          DeriveMasterKey(Password, User.KdfSalt, Key);
-          TSessionManager.Instance.LogIn(Key);
-
-          FillChar(Key[0], Length(Key), 0);
-          SetLength(Key, 0);
-
-          Exit(True);
-        end;
-
-        Exit(False);
       end;
-    end;
-
-    Result := False;
   finally
     CloseFile(UsersFile);
   end;
@@ -184,64 +177,34 @@ end;
 function ValidateRegistration(const password1, password2, login: string): string;
 begin
   if ((password1 = '') or (password2 = '') or (login = '')) then
-    begin
-      Result := 'Заполните все поля';
-      Exit;
-    end;
+    Exit('Заполните все поля');
 
   if Length(login) < 5 then
-    begin
-      Result := 'Логин должен быть не менее 5 символов';
-      Exit;
-    end;
+    Exit('Логин должен быть не менее 5 символов');
 
   if IsUserExists(login) then
-    begin
-      Result := 'Пользователь с таким логином уже существует';
-      Exit;
-    end;
+    Exit('Пользователь с таким логином уже существует');
 
   if password1 <> password2 then
-    begin
-      Result := 'Пароли должны совпадать';
-      Exit;
-    end;
+    Exit('Пароли должны совпадать');
 
   if not TRegEx.IsMatch(password1, '^.{16,}$') then
-    begin
-      Result := 'Пароль должен быть не менее 16 символов';
-      Exit;
-    end;
+    Exit('Пароль должен быть не менее 16 символов');
 
   if password1 = login then
-    begin
-      Result := 'Пароль не должен совпадать с логином';
-      Exit;
-    end;
+    Exit('Пароль не должен совпадать с логином');
 
   if not TRegEx.IsMatch(password1, '[A-Z]') then
-    begin
-      Result := 'Добавьте хотя бы одну заглавную букву';
-      Exit;
-    end;
+    Exit('Добавьте хотя бы одну заглавную букву');
 
   if not TRegEx.IsMatch(password1, '[a-z]') then
-    begin
-      Result := 'Добавьте хотя бы одну строчную букву';
-      Exit;
-    end;
+    Exit('Добавьте хотя бы одну строчную букву');
 
   if not TRegEx.IsMatch(password1, '\d') then
-    begin
-      Result := 'Добавьте хотя бы одну цифру';
-      Exit;
-    end;
+    Exit('Добавьте хотя бы одну цифру');
 
   if not TRegEx.IsMatch(password1, '[!@#$%^&*()_+\-=]') then
-    begin
-      Result := 'Добавьте хотя бы один специальный символ';
-      Exit;
-    end;
+    Exit('Добавьте хотя бы один специальный символ');
 
   Result := '';
 end;
@@ -253,22 +216,13 @@ begin
   FilePath := CreateDirectory();
 
   if ((password = '') or (login = '')) then
-    begin
-      Result := 'Заполните все поля';
-      Exit;
-    end;
+    Exit('Заполните все поля');
 
   if not FileExists(FilePath) then
-    begin
-      Result := 'Профили отсутствуют. Создайте новый';;
-      Exit;
-    end;
+    Exit('Профили отсутствуют. Создайте новый');
 
   if not CheckUserCredentials(login, password) then
-    begin
-      Result := 'Неверный логин или пароль';
-      Exit;
-    end;
+    Exit('Неверный логин или пароль');
 
   Result := '';
 end;
