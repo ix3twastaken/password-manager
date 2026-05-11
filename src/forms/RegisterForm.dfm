@@ -96,8 +96,8 @@ object RegistrationForm: TRegistrationForm
       StyleElements = []
     end
     object LabeledEditLogin: TLabeledEdit
-      Left = 40
-      Top = 38
+      Left = 41
+      Top = 40
       Width = 191
       Height = 25
       EditLabel.Width = 39
@@ -121,9 +121,9 @@ object RegistrationForm: TRegistrationForm
       OnKeyPress = LabeledEditLoginKeyPress
     end
     object LabeledEditPassword1: TLabeledEdit
-      Left = 40
-      Top = 83
-      Width = 168
+      Left = 41
+      Top = 88
+      Width = 185
       Height = 25
       EditLabel.Width = 49
       EditLabel.Height = 17
@@ -147,9 +147,9 @@ object RegistrationForm: TRegistrationForm
       OnKeyPress = LabeledEditPassword1KeyPress
     end
     object LabeledEditPassword2: TLabeledEdit
-      Left = 40
-      Top = 135
-      Width = 168
+      Left = 41
+      Top = 136
+      Width = 185
       Height = 25
       EditLabel.Width = 120
       EditLabel.Height = 17
@@ -189,8 +189,8 @@ object RegistrationForm: TRegistrationForm
       OnClick = CreateProfileBtnClick
     end
     object BtnShowPassword2: TBitBtn
-      Left = 206
-      Top = 135
+      Left = 208
+      Top = 136
       Width = 25
       Height = 25
       Cursor = crHandPoint
@@ -201,8 +201,8 @@ object RegistrationForm: TRegistrationForm
       OnClick = BtnShowPassword1Click
     end
     object BtnShowPassword1: TBitBtn
-      Left = 206
-      Top = 83
+      Left = 208
+      Top = 88
       Width = 25
       Height = 25
       Cursor = crHandPoint
