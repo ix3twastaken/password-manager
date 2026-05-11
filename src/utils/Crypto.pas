@@ -6,14 +6,6 @@ uses System.RegularExpressions, System.SysUtils, System.IOUtils,
      Winapi.Windows, Vcl.Dialogs,
      Vcl.ExtCtrls, Sodium, BCrypt;
 
-type
-  TUserRecord = record
-    ID: Integer;
-    Login: String[50];
-    PasswordHash: String[60];
-    KdfSalt: array[0..15] of Byte;
-  end;
-
 
 procedure DeriveMasterKey(const Password: AnsiString; const Salt: array of Byte; out Key: TBytes);
 function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
