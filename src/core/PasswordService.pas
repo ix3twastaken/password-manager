@@ -8,7 +8,7 @@ uses System.RegularExpressions, System.SysUtils,
      Vcl.ExtCtrls, BCrypt, Crypto, FileSystem, SessionManager;
 
 type
-    TUserRecord = record
+    TUserRecord = packed record
     ID: Integer;
     Login: String[50];
     PasswordHash: String[60];
@@ -35,7 +35,7 @@ begin
   FileOpened := False;
   UsersList := TList<string>.Create;
   try
-    FilePath := CreateDirectory();
+    FilePath := CreateDirectory('users.dat');
     AssignFile(UsersFile, FilePath);
 
     if FileExists(FilePath) then
@@ -78,7 +78,7 @@ var
 begin
   Result := False;
 
-  FilePath := CreateDirectory();
+  FilePath := CreateDirectory('users.dat');
   if not FileExists(FilePath) then
     Exit(False);
 
@@ -130,7 +130,7 @@ var
 begin
   FileOpened := False;
   try
-    FilePath := CreateDirectory();
+    FilePath := CreateDirectory('users.dat');
     AssignFile(UsersFile, FilePath);
 
     if FileExists(FilePath) then
@@ -157,8 +157,10 @@ begin
           ID := FileSize(UsersFile) + 1;
         Login := UsersLogin;
         PasswordHash := TBCrypt.HashPassword(UsersPassword);
-        Move(Salt[0], User.KdfSalt[0], 16);
+        Move(Salt[0], User.KdfSalt[0], Length(Salt));
       end;
+
+    CreateDataFile(User.ID);
 
     DeriveMasterKey(UsersPassword, User.KdfSalt, Key);
     TSessionManager.Instance.LogIn(Key);
@@ -213,7 +215,7 @@ end;
 function ValidateAuthorization(const password, login: string): string;
 var FilePath: string;
 begin
-  FilePath := CreateDirectory();
+  FilePath := CreateDirectory('users.dat');
 
   if ((password = '') or (login = '')) then
     Exit('Заполните все поля');
