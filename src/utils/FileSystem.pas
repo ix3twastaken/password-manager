@@ -35,15 +35,6 @@ begin
     Path := CreateDirectory('data_' + IntToStr(UserID) + '.dat');
     Assign(DataFile, Path);
     Rewrite(DataFile);
-    with Data do
-      begin
-        ID := UserID;
-        ServiceName := '';
-        Login := '';
-        Password := '';
-        Note := '';
-      end;
-    Write(DataFile, Data);
   finally
     CloseFile(DataFile);
   end;
