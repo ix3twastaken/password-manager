@@ -16,7 +16,9 @@ uses
   FileSystem in '..\utils\FileSystem.pas',
   Crypto in '..\utils\Crypto.pas',
   UIHelpers in '..\utils\UIHelpers.pas',
-  SessionManager in '..\core\SessionManager.pas';
+  SessionManager in '..\core\SessionManager.pas',
+  UserStorage in '..\data\UserStorage.pas',
+  UserTypes in '..\data\UserTypes.pas';
 
 {$R *.res}
 
