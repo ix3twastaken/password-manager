@@ -10,6 +10,7 @@ type
       FIsUnlocked: boolean;
       FLastActivity: TDateTime;
       FEncryptionKey: TBytes;
+      FUserID: integer;
     public
       constructor Create;
       destructor Destroy; override;
@@ -19,6 +20,7 @@ type
 
       property IsUnlocked: Boolean read FIsUnlocked write FIsUnlocked;
       property LastActivity: TDateTime read FLastActivity write FLastActivity;
+      property UserID: integer read FUserID write FUserID;
   End;
 
   TSessionManager = class
@@ -33,11 +35,13 @@ type
 
       class function Instance: TSessionManager;
 
-      procedure LogIn(const Key: TBytes);
+      procedure LogIn(const Key: TBytes; const ID: integer);
       procedure LogOut;
 
       function IsSessionActive: boolean;
+      function GetUserID: integer;
       procedure UpdateActivity;
+
   end;
 
 
@@ -51,6 +55,7 @@ begin
   FIsUnlocked := False;
   FLastActivity := 0;
   FEncryptionKey := nil;
+  FUserID := -1;
   SetLength(FEncryptionKey, 0);
 end;
 
@@ -99,11 +104,12 @@ begin
 end;
 
 
-procedure TSessionManager.LogIn(const Key: TBytes);
+procedure TSessionManager.LogIn(const Key: TBytes; const ID: integer);
 begin
   FSession.SetKey(Key);
   FSession.IsUnlocked := True;
   FSession.LastActivity := Now;
+  FSession.UserId := ID;
 end;
 
 
@@ -111,6 +117,7 @@ procedure TSessionManager.LogOut;
 begin
   FSession.ClearKey;
   FSession.IsUnlocked := False;
+  FSession.UserID := -1;
 end;
 
 
@@ -127,6 +134,12 @@ end;
 procedure TSessionManager.UpdateActivity;
 begin
   FSession.LastActivity := Now;
+end;
+
+
+function TSessionManager.GetUserID: integer;
+begin
+  Result := FSession.UserID;
 end;
 
 

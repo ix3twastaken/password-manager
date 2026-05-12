@@ -95,7 +95,7 @@ begin
                   end;
 
                 DeriveMasterKey(Password, User.KdfSalt, Key);
-                TSessionManager.Instance.LogIn(Key);
+                TSessionManager.Instance.LogIn(Key, User.ID);
 
                 FillChar(Key[0], Length(Key), 0);
                 SetLength(Key, 0);
@@ -155,7 +155,7 @@ begin
     CreateDataFile(User.ID);
 
     DeriveMasterKey(UsersPassword, User.KdfSalt, Key);
-    TSessionManager.Instance.LogIn(Key);
+    TSessionManager.Instance.LogIn(Key, User.ID);
 
     FillChar(Key[0], Length(Key), 0);
     SetLength(Key, 0);
