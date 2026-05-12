@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   System.RegularExpressions, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
-  Vcl.Buttons, dmImages, SessionManager;
+  Vcl.Buttons, dmImages, SessionManager, UserStorage;
 
 type
   TAuthorizationForm = class(TForm)
@@ -56,7 +56,9 @@ begin
   else
     SwitchForms(SpreadsheetForm, AuthorizationForm);
     SpreadsheetForm.ActivityTimer.Enabled := True;
+    SpreadsheetForm.SaveFileTimer.Enabled := True;
     ClearLabeledEdits([LabeledEditLogin, LabeledEditPassword]);
+    LoadFromFile(SpreadsheetForm.DataStringGrid);
 end;
 
 

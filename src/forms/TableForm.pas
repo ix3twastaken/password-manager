@@ -5,21 +5,24 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.StdCtrls, Vcl.Mask,
-  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Menus, SessionManager;
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Menus, SessionManager, UserStorage;
 
 type
   TSpreadsheetForm = class(TForm)
-    DataStringGrid: TStringGrid;
     GroupBox1: TGroupBox;
     LabeledEdit1: TLabeledEdit;
     SortAtoZBtn: TBitBtn;
     SortZtoABtn: TBitBtn;
-    MainMenu1: TMainMenu;
+    MainMenu: TMainMenu;
     MM_About: TMenuItem;
     MM_Profile: TMenuItem;
     MM_ChangePassword: TMenuItem;
     MM_Exit: TMenuItem;
     ActivityTimer: TTimer;
+    DataStringGrid: TStringGrid;
+    N1: TMenuItem;
+    MM_SaveFile: TMenuItem;
+    SaveFileTimer: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -30,6 +33,8 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormMouseWheel(Sender: TObject; Shift: TShiftState;
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
+    procedure MM_SaveFileClick(Sender: TObject);
+    procedure SaveFileTimerTimer(Sender: TObject);
   private
   public
   end;
@@ -45,6 +50,7 @@ uses UIHelpers, AuthForm, AboutForm;
 
 procedure TSpreadsheetForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  SaveToFile(DataStringGrid);
   Application.Terminate;
 end;
 
@@ -92,10 +98,24 @@ end;
 
 procedure TSpreadsheetForm.MM_ExitClick(Sender: TObject);
 begin
+  SaveToFile(DataStringGrid);
   TSessionManager.Instance.LogOut;
   SwitchForms(AuthorizationForm, SpreadsheetForm);
   ActivityTimer.Enabled := False;
+  SaveFileTimer.Enabled := False;
   ShowError('', AuthorizationForm.ErrorsLabel);
+end;
+
+
+procedure TSpreadsheetForm.MM_SaveFileClick(Sender: TObject);
+begin
+  SaveToFile(DataStringGrid);
+end;
+
+
+procedure TSpreadsheetForm.SaveFileTimerTimer(Sender: TObject);
+begin
+  SaveToFile(DataStringGrid);
 end;
 
 
@@ -105,7 +125,9 @@ begin
     begin
       if FormAbout.Visible then
         FormAbout.Hide;
+      SaveToFile(DataStringGrid);
       ActivityTimer.Enabled := False;
+      SaveFileTimer.Enabled := False;
       TSessionManager.Instance.LogOut;
       ShowError('Ваша сессия истекла', AuthorizationForm.ErrorsLabel);
       SwitchForms(AuthorizationForm, SpreadsheetForm);

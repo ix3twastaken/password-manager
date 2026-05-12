@@ -84,6 +84,7 @@ begin
     begin
       SwitchForms(SpreadsheetForm, RegistrationForm);
       SpreadsheetForm.ActivityTimer.Enabled := True;
+      SpreadsheetForm.SaveFileTimer.Enabled := True;
     end;
 end;
 

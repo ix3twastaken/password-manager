@@ -1,9 +1,12 @@
 object SpreadsheetForm: TSpreadsheetForm
   Left = 0
   Top = 0
+  Width = 875
+  Height = 501
+  VertScrollBar.Smooth = True
+  VertScrollBar.Visible = False
+  AutoScroll = True
   Caption = #1058#1072#1073#1083#1080#1094#1072
-  ClientHeight = 431
-  ClientWidth = 837
   Color = clBtnFace
   Constraints.MinHeight = 360
   Constraints.MinWidth = 640
@@ -12,7 +15,7 @@ object SpreadsheetForm: TSpreadsheetForm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  Menu = MainMenu1
+  Menu = MainMenu
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
@@ -21,34 +24,14 @@ object SpreadsheetForm: TSpreadsheetForm
   OnMouseWheel = FormMouseWheel
   OnResize = FormResize
   TextHeight = 15
-  object DataStringGrid: TStringGrid
-    Left = 0
-    Top = 103
-    Width = 836
-    Height = 326
-    Font.Charset = RUSSIAN_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Century Gothic'
-    Font.Style = []
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goTabs, goFixedRowDefAlign]
-    ParentFont = False
-    ScrollBars = ssVertical
-    TabOrder = 0
-    ColWidths = (
-      64
-      227
-      191
-      190
-      156)
-  end
   object GroupBox1: TGroupBox
     Left = 0
     Top = 0
-    Width = 837
+    Width = 859
     Height = 105
     Align = alTop
-    TabOrder = 1
+    TabOrder = 0
+    ExplicitWidth = 837
     object LabeledEdit1: TLabeledEdit
       Left = 16
       Top = 40
@@ -81,8 +64,37 @@ object SpreadsheetForm: TSpreadsheetForm
       TabOrder = 2
     end
   end
-  object MainMenu1: TMainMenu
+  object DataStringGrid: TStringGrid
+    Left = 0
+    Top = 105
+    Width = 834
+    Height = 305
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Century Gothic'
+    Font.Style = []
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goEditing, goTabs, goFixedRowDefAlign]
+    ParentFont = False
+    ScrollBars = ssVertical
+    TabOrder = 1
+    ColWidths = (
+      64
+      227
+      191
+      190
+      156)
+  end
+  object MainMenu: TMainMenu
     Left = 808
+    object N1: TMenuItem
+      Caption = #1060#1072#1081#1083
+      object MM_SaveFile: TMenuItem
+        Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+        ShortCut = 16467
+        OnClick = MM_SaveFileClick
+      end
+    end
     object MM_Profile: TMenuItem
       Caption = #1055#1088#1086#1092#1080#1083#1100
       object MM_ChangePassword: TMenuItem
@@ -102,6 +114,12 @@ object SpreadsheetForm: TSpreadsheetForm
     Enabled = False
     Interval = 10000
     OnTimer = ActivityTimerTimer
-    Left = 784
+    Left = 760
+  end
+  object SaveFileTimer: TTimer
+    Enabled = False
+    Interval = 60000
+    OnTimer = SaveFileTimerTimer
+    Left = 712
   end
 end
