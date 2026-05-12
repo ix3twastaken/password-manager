@@ -41,18 +41,18 @@ end;
 
 
 procedure CalcColWidths(Grid: TStringGrid; Form: TForm);
-const FirstCol = 24;
+const FirstCol = 22;
 var WindowWidth, WindowHeight, ColumnCount: integer;
 begin
   Grid.ColWidths[0] := FirstCol;
-  WindowWidth := Form.Width;
-  WindowHeight := Form.Height;
+  WindowWidth := Form.ClientWidth;
+  WindowHeight := Form.ClientHeight;
   ColumnCount := Grid.ColCount - 1;
   Grid.Width := WindowWidth;
   Grid.Height := WindowHeight - 105; //105 - высота GroupBox над Grid
 
   for var i := 1 to ColumnCount do
-      Grid.ColWidths[i] := ((WindowWidth - FirstCol) div ColumnCount)-4;
+    Grid.ColWidths[i] := ((WindowWidth - FirstCol) div ColumnCount)-2;
 end;
 
 
