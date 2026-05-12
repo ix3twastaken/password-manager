@@ -5,15 +5,7 @@ interface
 uses System.RegularExpressions, System.SysUtils,
      System.Generics.Collections,
      Winapi.Windows, Vcl.Dialogs,
-     Vcl.ExtCtrls, BCrypt, Crypto, FileSystem, SessionManager;
-
-type
-    TUserRecord = packed record
-    ID: Integer;
-    Login: String[50];
-    PasswordHash: String[60];
-    KdfSalt: array[0..15] of Byte;
-  end;
+     Vcl.ExtCtrls, BCrypt, Crypto, FileSystem, SessionManager, UserTypes;
 
 function IsUserExists(const Login: string): boolean;
 function CheckUserCredentials(const UsersLogin, Password: string): boolean;

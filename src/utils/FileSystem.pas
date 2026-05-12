@@ -2,17 +2,7 @@ unit FileSystem;
 
 interface
 
-uses System.SysUtils, System.IOUtils;
-
-
-type
-  TUserDataRecord = packed record
-    ID: integer;
-    ServiceName: string[255];
-    Login: string[255];
-    Password: string[255];
-    Note: string[255];
-  end;
+uses System.SysUtils, System.IOUtils, UserTypes;
 
 
 function CreateDirectory(FileName: string): string;
