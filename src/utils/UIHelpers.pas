@@ -11,6 +11,7 @@ procedure SwitchForms(FormToShow: TForm; FormToHide: TForm);
 procedure ShowError(const ErrorMsg: string; ErrLabel: TLabel);
 procedure ClearLabeledEdits(const Labeles: array of TLabeledEdit);
 procedure SetRowAndColumnNames(Grid: TStringGrid);
+procedure AutoAddRow(Grid: TStringGrid; CurrentRow: LongInt);
 
 implementation
 
@@ -82,5 +83,17 @@ begin
 
   for var i := 1 to Grid.RowCount - 1 do
     Grid.Cells[0, i] := IntToStr(i);
+end;
+
+
+procedure AutoAddRow(Grid: TStringGrid; CurrentRow: LongInt);
+var Cols: set of 1..4;
+begin
+  if CurrentRow = Grid.Rowcount - 1 then
+    begin
+      Grid.RowCount := Grid.RowCount + 1;
+      Grid.Cells[3, CurrentRow] := '********';
+      SetRowAndColumnNames(Grid);
+    end;
 end;
 end.

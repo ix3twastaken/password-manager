@@ -35,6 +35,8 @@ type
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
     procedure MM_SaveFileClick(Sender: TObject);
     procedure SaveFileTimerTimer(Sender: TObject);
+    procedure DataStringGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
+      const Value: string);
   private
   public
   end;
@@ -47,6 +49,12 @@ implementation
 uses UIHelpers, AuthForm, AboutForm;
 
 {$R *.dfm}
+
+procedure TSpreadsheetForm.DataStringGridSetEditText(Sender: TObject; ACol,
+  ARow: LongInt; const Value: string);
+begin
+  AutoAddRow(DataStringGrid, ARow);
+end;
 
 procedure TSpreadsheetForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin

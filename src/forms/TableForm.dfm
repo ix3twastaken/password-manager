@@ -31,7 +31,6 @@ object SpreadsheetForm: TSpreadsheetForm
     Height = 105
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 837
     object LabeledEdit1: TLabeledEdit
       Left = 16
       Top = 40
@@ -78,6 +77,7 @@ object SpreadsheetForm: TSpreadsheetForm
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 1
+    OnSetEditText = DataStringGridSetEditText
     ColWidths = (
       64
       227
