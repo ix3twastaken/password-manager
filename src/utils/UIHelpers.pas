@@ -3,7 +3,7 @@ unit UIHelpers;
 interface
 
 uses System.SysUtils, Vcl.Graphics,  Vcl.Forms, Vcl.Grids, Vcl.StdCtrls, Vcl.ExtCtrls,
-     Vcl.Buttons, dmImages;
+     Vcl.Buttons, dmImages, WinApi.Windows;
 
 procedure ShowPassword(Password: TLabeledEdit; Btn: TBitBtn);
 procedure CalcColWidths(Grid: TStringGrid; Form: TForm);
@@ -12,6 +12,7 @@ procedure ShowError(const ErrorMsg: string; ErrLabel: TLabel);
 procedure ClearLabeledEdits(const Labeles: array of TLabeledEdit);
 procedure SetRowAndColumnNames(Grid: TStringGrid);
 procedure AutoAddRow(Grid: TStringGrid; CurrentRow: LongInt);
+procedure ClearGrid(Grid: TStringGrid);
 
 implementation
 
@@ -42,7 +43,7 @@ end;
 
 
 procedure CalcColWidths(Grid: TStringGrid; Form: TForm);
-const FirstCol = 22;
+const FirstCol = 24;
 var WindowWidth, WindowHeight, ColumnCount: integer;
 begin
   Grid.ColWidths[0] := FirstCol;
@@ -87,7 +88,6 @@ end;
 
 
 procedure AutoAddRow(Grid: TStringGrid; CurrentRow: LongInt);
-var Cols: set of 1..4;
 begin
   if CurrentRow = Grid.Rowcount - 1 then
     begin
@@ -95,5 +95,13 @@ begin
       Grid.Cells[3, CurrentRow] := '********';
       SetRowAndColumnNames(Grid);
     end;
+end;
+
+
+procedure ClearGrid(Grid: TStringGrid);
+begin
+  for var i := 1 to Grid.RowCount - 1 do
+    Grid.Rows[i].Clear;
+  Grid.RowCount := 5;
 end;
 end.

@@ -23,6 +23,7 @@ object SpreadsheetForm: TSpreadsheetForm
   OnMouseMove = FormMouseMove
   OnMouseWheel = FormMouseWheel
   OnResize = FormResize
+  OnShow = FormShow
   TextHeight = 15
   object GroupBox1: TGroupBox
     Left = 0
@@ -66,8 +67,9 @@ object SpreadsheetForm: TSpreadsheetForm
   object DataStringGrid: TStringGrid
     Left = 0
     Top = 105
-    Width = 834
-    Height = 305
+    Width = 859
+    Height = 337
+    Align = alClient
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13

@@ -72,7 +72,7 @@ begin
   try
     Row := 1;
 
-    Grid.RowCount := FileSize(DataFile) + 2; 
+    Grid.RowCount := FileSize(DataFile) + 1;
 
     while not Eof(DataFile) do
       begin

@@ -37,6 +37,7 @@ type
     procedure SaveFileTimerTimer(Sender: TObject);
     procedure DataStringGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
       const Value: string);
+    procedure FormShow(Sender: TObject);
   private
   public
   end;
@@ -56,6 +57,7 @@ begin
   AutoAddRow(DataStringGrid, ARow);
 end;
 
+
 procedure TSpreadsheetForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   SaveToFile(DataStringGrid);
@@ -65,6 +67,7 @@ end;
 
 procedure TSpreadsheetForm.FormCreate(Sender: TObject);
 begin
+  ClearGrid(DataStringGrid);
   SetRowAndColumnNames(DataStringGrid);
   CalcColWidths(DataStringGrid, SpreadsheetForm);
 end;
@@ -96,6 +99,13 @@ begin
   CalcColWidths(DataStringGrid, SpreadsheetForm);
 end;
 
+
+procedure TSpreadsheetForm.FormShow(Sender: TObject);
+begin
+  ClearGrid(DataStringGrid);
+  SetRowAndColumnNames(DataStringGrid);
+  CalcColWidths(DataStringGrid, SpreadsheetForm);
+end;
 
 procedure TSpreadsheetForm.MM_AboutClick(Sender: TObject);
 begin
