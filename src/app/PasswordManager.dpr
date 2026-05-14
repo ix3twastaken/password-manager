@@ -18,7 +18,8 @@ uses
   UIHelpers in '..\utils\UIHelpers.pas',
   SessionManager in '..\core\SessionManager.pas',
   UserStorage in '..\data\UserStorage.pas',
-  UserTypes in '..\data\UserTypes.pas';
+  UserTypes in '..\data\UserTypes.pas',
+  PasswordForm in '..\forms\PasswordForm.pas' {PasswdForm};
 
 {$R *.res}
 
@@ -35,6 +36,7 @@ begin
   Application.CreateForm(TSpreadsheetForm, SpreadsheetForm);
   Application.CreateForm(TFormAbout, FormAbout);
   Application.CreateForm(TDM, DM);
+  Application.CreateForm(TPasswdForm, PasswdForm);
   Application.Run;
 
 

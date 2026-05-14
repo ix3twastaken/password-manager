@@ -38,6 +38,12 @@ type
     procedure DataStringGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
       const Value: string);
     procedure FormShow(Sender: TObject);
+    procedure DataStringGridKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DataStringGridMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure DataStringGridSelectCell(Sender: TObject; ACol, ARow: LongInt;
+      var CanSelect: Boolean);
   private
   public
   end;
@@ -47,9 +53,49 @@ var
 
 implementation
 
-uses UIHelpers, AuthForm, AboutForm;
+uses UIHelpers, AuthForm, AboutForm, PasswordForm;
 
 {$R *.dfm}
+
+procedure TSpreadsheetForm.DataStringGridKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_RETURN) then // Enter
+    begin
+      if DataStringGrid.Col = 3 then
+        begin
+          PasswdFormShow(PasswdForm, Self);
+        end;
+    end;
+
+end;
+
+procedure TSpreadsheetForm.DataStringGridMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+var
+  Col, Row: Integer;
+begin
+  if ssDouble in Shift then
+  begin
+    DataStringGrid.MouseToCell(X, Y, Col, Row);
+
+    if (Col = 3) and (Row > 0) then
+      begin
+        PasswdFormShow(PasswdForm, SpreadsheetForm);
+      end;
+  end;
+end;
+
+
+procedure TSpreadsheetForm.DataStringGridSelectCell(Sender: TObject; ACol,
+  ARow: LongInt; var CanSelect: Boolean);
+begin
+  if ACol = 3 then
+    DataStringGrid.Options := DataStringGrid.Options - [goEditing]
+  else
+    DataStringGrid.Options := DataStringGrid.Options + [goEditing];
+end;
 
 procedure TSpreadsheetForm.DataStringGridSetEditText(Sender: TObject; ACol,
   ARow: LongInt; const Value: string);

@@ -75,10 +75,13 @@ object SpreadsheetForm: TSpreadsheetForm
     Font.Height = -13
     Font.Name = 'Century Gothic'
     Font.Style = []
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goEditing, goTabs, goFixedRowDefAlign]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goTabs, goFixedRowDefAlign]
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 1
+    OnKeyDown = DataStringGridKeyDown
+    OnMouseDown = DataStringGridMouseDown
+    OnSelectCell = DataStringGridSelectCell
     OnSetEditText = DataStringGridSetEditText
     ColWidths = (
       64

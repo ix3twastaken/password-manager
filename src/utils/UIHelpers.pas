@@ -13,6 +13,8 @@ procedure ClearLabeledEdits(const Labeles: array of TLabeledEdit);
 procedure SetRowAndColumnNames(Grid: TStringGrid);
 procedure AutoAddRow(Grid: TStringGrid; CurrentRow: LongInt);
 procedure ClearGrid(Grid: TStringGrid);
+procedure PasswdFormShow(PasswdForm: TForm; ParentForm: TForm);
+procedure PasswdFormHide(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit);
 
 implementation
 
@@ -83,7 +85,10 @@ begin
   Grid.Cells[4, 0] := 'Примечание';
 
   for var i := 1 to Grid.RowCount - 1 do
-    Grid.Cells[0, i] := IntToStr(i);
+    begin
+      Grid.Cells[0, i] := IntToStr(i);
+      Grid.Cells[3, i] := '********';
+    end;
 end;
 
 
@@ -103,5 +108,21 @@ begin
   for var i := 1 to Grid.RowCount - 1 do
     Grid.Rows[i].Clear;
   Grid.RowCount := 5;
+end;
+
+
+procedure PasswdFormShow(PasswdForm: TForm; ParentForm: TForm);
+begin
+  PasswdForm.Show;
+  ParentForm.Enabled := False;
+end;
+
+
+procedure PasswdFormHide(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit);
+begin
+  LabeledEditPasswd.Text := '';
+  PasswdForm.Hide;
+  ParentForm.Enabled := True;
+  ParentForm.SetFocus;
 end;
 end.
