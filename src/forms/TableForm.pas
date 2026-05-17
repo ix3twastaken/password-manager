@@ -64,7 +64,8 @@ begin
     begin
       if DataStringGrid.Col = 3 then
         begin
-          PasswdFormShow(PasswdForm, Self);
+          SaveToFile(DataStringGrid);
+          PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, DataStringGrid.Row);
         end;
     end;
 
@@ -72,7 +73,6 @@ end;
 
 procedure TSpreadsheetForm.DataStringGridMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-
 var
   Col, Row: Integer;
 begin
@@ -82,7 +82,8 @@ begin
 
     if (Col = 3) and (Row > 0) then
       begin
-        PasswdFormShow(PasswdForm, SpreadsheetForm);
+        SaveToFile(DataStringGrid);
+        PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, Row);
       end;
   end;
 end;

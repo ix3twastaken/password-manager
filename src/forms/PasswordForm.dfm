@@ -2,7 +2,7 @@ object PasswdForm: TPasswdForm
   Left = 0
   Top = 0
   AutoSize = True
-  BorderIcons = [biSystemMenu]
+  BorderIcons = []
   BorderStyle = bsSingle
   Caption = #1055#1072#1088#1086#1083#1100
   ClientHeight = 140
@@ -14,7 +14,6 @@ object PasswdForm: TPasswdForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
-  OnClose = FormClose
   TextHeight = 15
   object LabeledEditPassword: TLabeledEdit
     AlignWithMargins = True
@@ -45,6 +44,7 @@ object PasswdForm: TPasswdForm
     PasswordChar = '*'
     TabOrder = 0
     Text = ''
+    OnKeyPress = LabeledEditPasswordKeyPress
   end
   object BtnShowPassword: TBitBtn
     AlignWithMargins = True

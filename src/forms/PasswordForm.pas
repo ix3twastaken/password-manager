@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.RegularExpressions;
 
 type
   TPasswdForm = class(TForm)
@@ -14,7 +14,7 @@ type
     DoneBtn: TBitBtn;
     procedure BtnShowPasswordClick(Sender: TObject);
     procedure DoneBtnClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure LabeledEditPasswordKeyPress(Sender: TObject; var Key: Char);
   private
   public
   end;
@@ -33,14 +33,20 @@ begin
   PasswdFormHide(PasswdForm, SpreadsheetForm, LabeledEditPassword);
 end;
 
+procedure TPasswdForm.LabeledEditPasswordKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #8 then
+    Exit;
+
+  if not CharInSet(Key, ['A'..'Z', 'a'..'z', '0'..'9',
+    '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=']) then
+    Key := #0;
+end;
+
 procedure TPasswdForm.BtnShowPasswordClick(Sender: TObject);
 begin
   ShowPassword(LabeledEditPassword, BtnShowPassword);
-end;
-
-procedure TPasswdForm.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  PasswdFormHide(PasswdForm, SpreadsheetForm, LabeledEditPassword);
 end;
 
 end.

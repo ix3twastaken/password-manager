@@ -70,6 +70,7 @@ object SpreadsheetForm: TSpreadsheetForm
     Width = 859
     Height = 337
     Align = alClient
+    RowCount = 2
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13

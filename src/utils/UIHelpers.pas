@@ -13,11 +13,14 @@ procedure ClearLabeledEdits(const Labeles: array of TLabeledEdit);
 procedure SetRowAndColumnNames(Grid: TStringGrid);
 procedure AutoAddRow(Grid: TStringGrid; CurrentRow: LongInt);
 procedure ClearGrid(Grid: TStringGrid);
-procedure PasswdFormShow(PasswdForm: TForm; ParentForm: TForm);
+procedure PasswdFormShow(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit; CurrentRow: LongInt);
 procedure PasswdFormHide(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit);
 
 implementation
 
+uses UserStorage;
+
+var Row: LongInt = 1;
 
 procedure ShowError(const ErrorMsg: string; ErrLabel: TLabel);
 begin
@@ -111,18 +114,37 @@ begin
 end;
 
 
-procedure PasswdFormShow(PasswdForm: TForm; ParentForm: TForm);
+procedure PasswdFormShow(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit; CurrentRow: LongInt);
 begin
-  PasswdForm.Show;
+  Row := CurrentRow;
+  // процедура для извлечения и расшифровки пароля и его присваивание в LabeledEdit
+
   ParentForm.Enabled := False;
+  PasswdForm.Show;
+  GetPasswdFromFile(LabeledEditPasswd, CurrentRow);
+
+
 end;
 
 
 procedure PasswdFormHide(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit);
 begin
-  LabeledEditPasswd.Text := '';
-  PasswdForm.Hide;
-  ParentForm.Enabled := True;
-  ParentForm.SetFocus;
+  if LabeledEditPasswd.Text = '' then
+    begin
+      PasswdForm.Hide;
+      ParentForm.Enabled := True;
+      ParentForm.SetFocus;
+    end
+  else
+    begin
+      // процедура шифрования и записи пароля в файл из LabeledEdit
+      SavePasswdToFile(LabeledEditPasswd, Row);
+      LabeledEditPasswd.Text := '';
+      PasswdForm.Hide;
+      ParentForm.Enabled := True;
+      ParentForm.SetFocus;
+    end;
+
+
 end;
 end.
