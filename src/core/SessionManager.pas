@@ -2,7 +2,7 @@ unit SessionManager;
 
 interface
 
-uses System.SysUtils, System.DateUtils, Vcl.Dialogs;
+uses System.SysUtils, System.DateUtils, Vcl.Dialogs, Crypto;
 
 type
   TSessionState = class
@@ -17,6 +17,7 @@ type
 
       procedure ClearKey;
       procedure SetKey(const AKey: TBytes);
+      function GetKey: TBytes;
 
       property IsUnlocked: Boolean read FIsUnlocked write FIsUnlocked;
       property LastActivity: TDateTime read FLastActivity write FLastActivity;
@@ -40,8 +41,12 @@ type
 
       function IsSessionActive: boolean;
       function GetUserID: integer;
+      function GetKey: TBytes;
       procedure UpdateActivity;
 
+
+      function EncryptData(const Data: TBytes): TBytes;
+      function DecryptData(const Data: TBytes): TBytes;
   end;
 
 
@@ -81,6 +86,14 @@ begin
     FEncryptionKey[i] := 0;
 
   SetLength(FEncryptionKey, 0);
+end;
+
+function TSessionState.GetKey: TBytes;
+begin
+  if not FIsUnlocked then
+    raise Exception.Create('Session locked');
+
+  Result := Copy(FEncryptionKey);
 end;
 
 // End of TSessionState implementation
@@ -143,12 +156,30 @@ begin
 end;
 
 
+function TSessionManager.GetKey: TBytes;
+begin
+  Result := FSession.GetKey;
+end;
+
+
 class function TSessionManager.Instance: TSessionManager;
 begin
   if FInstance = nil then
     FInstance := TSessionManager.Create;
 
   Result := FInstance;
+end;
+
+
+function TSessionManager.EncryptData(const Data: TBytes): TBytes;
+begin
+  Result := Encrypt(Data, TSessionManager.Instance.GetKey);
+end;
+
+
+function TSessionManager.DecryptData(const Data: TBytes): TBytes;
+begin
+  Result := Decrypt(Data, TSessionManager.Instance.GetKey);
 end;
 
 // End of TSessionManager implementation
