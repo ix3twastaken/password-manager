@@ -117,13 +117,9 @@ end;
 procedure PasswdFormShow(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit; CurrentRow: LongInt);
 begin
   Row := CurrentRow;
-  // процедура для извлечения и расшифровки пароля и его присваивание в LabeledEdit
-
   ParentForm.Enabled := False;
   PasswdForm.Show;
   GetPasswdFromFile(LabeledEditPasswd, CurrentRow);
-
-
 end;
 
 
@@ -137,14 +133,11 @@ begin
     end
   else
     begin
-      // процедура шифрования и записи пароля в файл из LabeledEdit
       SavePasswdToFile(LabeledEditPasswd, Row);
       LabeledEditPasswd.Text := '';
       PasswdForm.Hide;
       ParentForm.Enabled := True;
       ParentForm.SetFocus;
     end;
-
-
 end;
 end.

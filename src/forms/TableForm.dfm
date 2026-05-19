@@ -54,6 +54,9 @@ object SpreadsheetForm: TSpreadsheetForm
       Top = 15
       Width = 32
       Height = 32
+      ImageIndex = 0
+      ImageName = 'sort-amount-down'
+      Images = DM.VirtImgSorting
       TabOrder = 1
     end
     object SortZtoABtn: TBitBtn
@@ -61,6 +64,9 @@ object SpreadsheetForm: TSpreadsheetForm
       Top = 15
       Width = 32
       Height = 32
+      ImageIndex = 1
+      ImageName = 'sort-amount-up'
+      Images = DM.VirtImgSorting
       TabOrder = 2
     end
   end

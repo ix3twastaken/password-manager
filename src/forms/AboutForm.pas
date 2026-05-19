@@ -26,6 +26,7 @@ type
     LinkLabel6: TLinkLabel;
     Label7: TLabel;
     LinkLabel7: TLinkLabel;
+    LinkLabel8: TLinkLabel;
     procedure LinkLabel1LinkClick(Sender: TObject; const Link: string;
       LinkType: TSysLinkType);
   private

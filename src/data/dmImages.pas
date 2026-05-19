@@ -11,6 +11,7 @@ type
     ImageCollection: TImageCollection;
     VirtImgListPassword: TVirtualImageList;
     VirtImgListOther: TVirtualImageList;
+    VirtImgSorting: TVirtualImageList;
   private
     { Private declarations }
   public
