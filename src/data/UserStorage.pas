@@ -3,8 +3,8 @@ unit UserStorage;
 interface
 
 uses System.SysUtils, System.IOUtils, System.Generics.Collections, System.UITypes, 
-     UserTypes, Vcl.Grids, SessionManager, FileSystem, Vcl.Dialogs, UIHelpers,
-     Vcl.ExtCtrls, Crypto;
+     System.Generics.Defaults, UserTypes, Vcl.Grids, SessionManager, FileSystem,
+     Vcl.Dialogs, UIHelpers, Vcl.ExtCtrls, Crypto;
 
 procedure SaveToFile(Grid: TStringGrid);
 procedure LoadFromFile(Grid: TStringGrid);
@@ -12,6 +12,21 @@ procedure GetPasswdFromFile(LabeledEditPasswd: TLabeledEdit; Row: integer);
 procedure SavePasswdToFile(LabeledEditPasswd: TLabeledEdit; Row: integer);
 procedure SetPassword(var Rec: TUserDataRecord; const Data: TBytes);
 function GetPassword(const Rec: TUserDataRecord): TBytes;
+function CompareStrings(const S1, S2: string; Desc: boolean): Integer;
+function CompareRecords(
+  const L, R: TIndexedRecord;
+  SortColumn: integer;
+  Desc: boolean
+): Integer;
+procedure SortTList(
+  {out}List: TList<TUserDataRecord>;
+  SortColumn: integer;
+  Desc: boolean
+);
+procedure FileToTList(out List: TList<TUserDataRecord>);
+procedure TListToFile(List: TList<TUserDataRecord>);
+procedure SortGrid(Grid: TStringGrid; Desc: Boolean);
+
 
 implementation
 
@@ -186,4 +201,161 @@ begin
   if Rec.PasswordSize > 0 then
     Move(Rec.Password[0], Result[0], Rec.PasswordSize);
 end;
+
+
+function CompareStrings(const S1, S2: string; Desc: boolean): Integer;
+var
+  IsEmpty1, IsEmpty2: Boolean;
+begin
+  IsEmpty1 := S1.Trim.IsEmpty;
+  IsEmpty2 := S2.Trim.IsEmpty;
+
+  if IsEmpty1 and IsEmpty2 then
+    Exit(0);
+
+  if IsEmpty1 then
+    Exit(1);
+
+  if IsEmpty2 then
+    Exit(-1);
+
+  Result := CompareText(S1, S2);
+
+  if Desc then
+    Result := -Result;
+end;
+
+
+function CompareRecords(
+  const L, R: TIndexedRecord;
+  SortColumn: integer;
+  Desc: Boolean
+): Integer;
+begin
+  case SortColumn of
+    1: Result := CompareStrings(L.Rec.ServiceName, R.Rec.ServiceName, Desc);
+    2: Result := CompareStrings(L.Rec.Login, R.Rec.Login, Desc);
+    4: Result := CompareStrings(L.Rec.Note, R.Rec.Note, Desc);
+  else
+    Result := 0;
+  end;
+
+  if Result = 0 then
+    Result := L.OriginalIndex - R.OriginalIndex;
+
+end;
+
+
+procedure SortTList(
+  List: TList<TUserDataRecord>;
+  SortColumn: Integer;
+  Desc: Boolean
+);
+var
+  TempList: TList<TIndexedRecord>;
+  i: Integer;
+  Temp: TIndexedRecord;
+begin
+  TempList := TList<TIndexedRecord>.Create;
+  try
+    for i := 0 to List.Count - 1 do
+      begin
+        Temp.Rec := List[i];
+        Temp.OriginalIndex := i;
+        TempList.Add(Temp);
+      end;
+
+    TempList.Sort(
+      TComparer<TIndexedRecord>.Construct(
+        function(const L, R: TIndexedRecord): Integer
+        begin
+          Result := CompareRecords(L, R, SortColumn, Desc);
+        end
+      )
+    );
+
+    for i := 0 to TempList.Count - 1 do
+      List[I] := TempList[i].Rec;
+
+  finally
+    TempList.Free;
+  end;
+end;
+
+procedure FileToTList(out List: TList<TUserDataRecord>);
+var
+  DataFile: file of TUserDataRecord;
+  Data: TUserDataRecord;
+  Path: string;
+begin
+  List := TList<TUserDataRecord>.Create;
+  Path := CreateDirectory('data_' + IntToStr(TSessionManager.Instance.GetUserID) + '.dat');
+
+  if not FileExists(Path) then
+    begin
+      MessageDlg('Файл не существует', mtError, [mbOK], 0);
+      Exit;
+    end;
+
+  AssignFile(DataFile, Path);
+  Reset(DataFile);
+
+  try
+    while not eof(DataFile) do
+      begin
+        Read(DataFile, Data);
+        List.Add(Data);
+      end;
+  finally
+    CloseFile(DataFile);
+  end;
+end;
+
+
+procedure TListToFile(List: TList<TUserDataRecord>);
+var
+  DataFile: file of TUserDataRecord;
+  Data: TUserDataRecord;
+  Path: string;
+begin
+  Path := CreateDirectory('data_' + IntToStr(TSessionManager.Instance.GetUserID) + '.dat');
+
+  if not FileExists(Path) then
+    begin
+      MessageDlg('Файл не существует', mtError, [mbOK], 0);
+      Exit;
+    end;
+
+  AssignFile(DataFile, Path);
+  Reset(DataFile);
+
+  try
+    for var i := 0 to List.Count - 1 do
+      begin
+        Data := List[i];
+        Write(DataFile, Data);
+      end;
+  finally
+    List.Free;
+    CloseFile(DataFile);
+  end;
+end;
+
+
+procedure SortGrid(Grid: TStringGrid; Desc: Boolean);
+var List: TList<TUserDataRecord>;
+    SortColumn: Integer;
+begin
+  SortColumn := Grid.Col;
+
+  if SortColumn = 3 then
+    Exit;
+
+  SaveToFile(Grid); //сохранение таблицы в файл
+  FileToTList(List); //перенос данных из файла в TList<TUserDataRecord>
+  SortTList(List, SortColumn, Desc); //вызов процедуры сортировки
+  TListToFile(List); //сохранение TList<TUserDataRecord> в файл
+  LoadFromFile(Grid); //загрузка из файла
+end;
+
 end.

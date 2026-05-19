@@ -54,20 +54,32 @@ object SpreadsheetForm: TSpreadsheetForm
       Top = 15
       Width = 32
       Height = 32
+      Hint = 
+        #1057#1086#1088#1090#1080#1088#1086#1074#1082#1072' '#1090#1072#1073#1083#1080#1094#1099'              '#13#10#1086#1090' '#1040' '#1076#1086' '#1071' '#1087#1086' '#1074#1099#1076#1077#1083#1077#1085#1085#1086#1084#1091'     '#13 +
+        #10#1089#1090#1086#1083#1073#1094#1091'.'
       ImageIndex = 0
       ImageName = 'sort-amount-down'
       Images = DM.VirtImgSorting
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 1
+      OnClick = SortAtoZBtnClick
     end
     object SortZtoABtn: TBitBtn
       Left = 350
       Top = 15
       Width = 32
       Height = 32
+      Hint = 
+        #1057#1086#1088#1090#1080#1088#1086#1074#1082#1072' '#1090#1072#1073#1083#1080#1094#1099'              '#13#10#1086#1090' '#1071' '#1076#1086' '#1040' '#1087#1086' '#1074#1099#1076#1077#1083#1077#1085#1085#1086#1084#1091'     '#13 +
+        #10#1089#1090#1086#1083#1073#1094#1091'.'
       ImageIndex = 1
       ImageName = 'sort-amount-up'
       Images = DM.VirtImgSorting
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 2
+      OnClick = SortZtoABtnClick
     end
   end
   object DataStringGrid: TStringGrid

@@ -24,6 +24,11 @@ type
     KdfSalt: array[0..15] of Byte;
   end;
 
+  TIndexedRecord = record
+    Rec: TUserDataRecord;
+    OriginalIndex: Integer;
+  end;
+
 implementation
 
 end.

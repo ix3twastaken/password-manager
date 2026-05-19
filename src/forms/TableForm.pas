@@ -44,6 +44,8 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure DataStringGridSelectCell(Sender: TObject; ACol, ARow: LongInt;
       var CanSelect: Boolean);
+    procedure SortAtoZBtnClick(Sender: TObject);
+    procedure SortZtoABtnClick(Sender: TObject);
   private
   public
   end;
@@ -184,6 +186,16 @@ begin
 end;
 
 
+procedure TSpreadsheetForm.SortAtoZBtnClick(Sender: TObject);
+begin
+  SortGrid(DataStringGrid, False);
+end;
+
+procedure TSpreadsheetForm.SortZtoABtnClick(Sender: TObject);
+begin
+  SortGrid(DataStringGrid, True);
+end;
+
 procedure TSpreadsheetForm.ActivityTimerTimer(Sender: TObject);
 begin
   if not TSessionManager.Instance.IsSessionActive then
@@ -198,4 +210,7 @@ begin
       SwitchForms(AuthorizationForm, SpreadsheetForm);
     end;
 end;
+
+
+
 end.
