@@ -3,7 +3,7 @@ object FormAbout: TFormAbout
   Top = 0
   BorderStyle = bsDialog
   Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
-  ClientHeight = 655
+  ClientHeight = 627
   ClientWidth = 484
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
@@ -252,7 +252,7 @@ object FormAbout: TFormAbout
   end
   object Label5: TLabel
     Left = 16
-    Top = 580
+    Top = 564
     Width = 290
     Height = 23
     Caption = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1072#1103' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1103
@@ -1704,8 +1704,8 @@ object FormAbout: TFormAbout
       FFFFFFFFFF800000FFFFFFFFFFFFFFFFFFFFFFFFFF800000}
   end
   object Label6: TLabel
-    Left = 16
-    Top = 365
+    Left = 17
+    Top = 359
     Width = 396
     Height = 48
     Caption = 
@@ -1720,8 +1720,8 @@ object FormAbout: TFormAbout
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 16
-    Top = 453
+    Left = 17
+    Top = 524
     Width = 216
     Height = 16
     Caption = 'This software uses libsodium (ISC License)'
@@ -1733,13 +1733,13 @@ object FormAbout: TFormAbout
     ParentFont = False
   end
   object LinkLabel1: TLinkLabel
-    Left = 16
-    Top = 508
+    Left = 17
+    Top = 468
     Width = 265
     Height = 20
     Caption = 
-      '<a href="https://www.flaticon.com/free-icons/shield" title="shie' +
-      'ld icons">Shield icons created by Hilmy Abiyyu A. - Flaticon</a>'
+      'Shield icons created by <a href="https://www.flaticon.com/free-i' +
+      'cons/shield" title="shield icons">Hilmy Abiyyu A. - Flaticon</a>'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -1750,13 +1750,13 @@ object FormAbout: TFormAbout
     OnLinkClick = LinkLabel1LinkClick
   end
   object LinkLabel2: TLinkLabel
-    Left = 16
-    Top = 522
+    Left = 17
+    Top = 482
     Width = 250
     Height = 20
     Caption = 
-      '<a href="https://www.flaticon.com/free-icons/password" title="pa' +
-      'ssword icons">Password icons created by th studio - Flaticon</a>'
+      'Password icons created by <a href="https://www.flaticon.com/free' +
+      '-icons/password" title="password icons">th studio - Flaticon</a>'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -1768,7 +1768,7 @@ object FormAbout: TFormAbout
   end
   object LinkLabel3: TLinkLabel
     Left = 16
-    Top = 609
+    Top = 593
     Width = 49
     Height = 21
     Caption = 
@@ -1779,7 +1779,7 @@ object FormAbout: TFormAbout
   end
   object LinkLabel4: TLinkLabel
     Left = 99
-    Top = 609
+    Top = 593
     Width = 73
     Height = 21
     Caption = '<a href="https://opensource.org/license/mit">MIT License</a>'
@@ -1787,13 +1787,13 @@ object FormAbout: TFormAbout
     OnLinkClick = LinkLabel1LinkClick
   end
   object LinkLabel5: TLinkLabel
-    Left = 16
-    Top = 492
+    Left = 17
+    Top = 452
     Width = 242
     Height = 20
     Caption = 
-      '<a href="https://www.flaticon.com/free-icons/back" title="back i' +
-      'cons">Back icons created by Roundicons - Flaticon</a>'
+      'Back icons created by <a href="https://www.flaticon.com/free-ico' +
+      'ns/back" title="back icons">Roundicons - Flaticon</a>'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -1804,13 +1804,13 @@ object FormAbout: TFormAbout
     OnLinkClick = LinkLabel1LinkClick
   end
   object LinkLabel6: TLinkLabel
-    Left = 16
-    Top = 466
-    Width = 322
+    Left = 17
+    Top = 537
+    Width = 195
     Height = 20
     Caption = 
       '<a href="https://github.com/jedisct1/libsodium">Copyright (c) 20' +
-      '13-2026  Frank Denis <j at pureftpd dot org></a>'
+      '13-2026  Frank Denis</a>'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -1822,7 +1822,7 @@ object FormAbout: TFormAbout
   end
   object LinkLabel7: TLinkLabel
     Left = 208
-    Top = 609
+    Top = 593
     Width = 74
     Height = 21
     Caption = '<a href="https://opensource.org/license/isc">ISC License</a>'
@@ -1830,8 +1830,8 @@ object FormAbout: TFormAbout
     OnLinkClick = LinkLabel1LinkClick
   end
   object LinkLabel8: TLinkLabel
-    Left = 16
-    Top = 538
+    Left = 17
+    Top = 498
     Width = 101
     Height = 20
     Caption = 'Uicons by <a href="https://www.flaticon.com/uicons">Flaticon</a>'
