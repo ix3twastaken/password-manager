@@ -29,29 +29,13 @@ object SpreadsheetForm: TSpreadsheetForm
     Left = 0
     Top = 0
     Width = 859
-    Height = 105
+    Height = 80
     Align = alTop
     TabOrder = 0
-    object LabeledEdit1: TLabeledEdit
-      Left = 16
-      Top = 40
-      Width = 273
-      Height = 23
-      EditLabel.Width = 41
-      EditLabel.Height = 17
-      EditLabel.Caption = #1055#1086#1080#1089#1082
-      EditLabel.Font.Charset = ANSI_CHARSET
-      EditLabel.Font.Color = clWindowText
-      EditLabel.Font.Height = -13
-      EditLabel.Font.Name = 'Century Gothic'
-      EditLabel.Font.Style = []
-      EditLabel.ParentFont = False
-      TabOrder = 0
-      Text = ''
-    end
+    ExplicitTop = -6
     object SortAtoZBtn: TBitBtn
-      Left = 312
-      Top = 15
+      Left = 10
+      Top = 12
       Width = 32
       Height = 32
       Hint = 
@@ -62,12 +46,12 @@ object SpreadsheetForm: TSpreadsheetForm
       Images = DM.VirtImgSorting
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 1
+      TabOrder = 0
       OnClick = SortAtoZBtnClick
     end
     object SortZtoABtn: TBitBtn
-      Left = 350
-      Top = 15
+      Left = 48
+      Top = 12
       Width = 32
       Height = 32
       Hint = 
@@ -78,15 +62,34 @@ object SpreadsheetForm: TSpreadsheetForm
       Images = DM.VirtImgSorting
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 2
+      TabOrder = 1
       OnClick = SortZtoABtnClick
+    end
+    object SearchEdit: TButtonedEdit
+      Left = 632
+      Top = 12
+      Width = 216
+      Height = 25
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Century Gothic'
+      Font.Style = []
+      Images = DM.VirtImgSearch
+      ParentFont = False
+      RightButton.ImageIndex = 6
+      RightButton.ImageName = 'search'
+      RightButton.Visible = True
+      TabOrder = 2
+      TextHint = #1055#1086#1080#1089#1082
+      OnRightButtonClick = SearchEditRightButtonClick
     end
   end
   object DataStringGrid: TStringGrid
     Left = 0
-    Top = 105
+    Top = 80
     Width = 859
-    Height = 337
+    Height = 362
     Align = alClient
     RowCount = 2
     Font.Charset = RUSSIAN_CHARSET

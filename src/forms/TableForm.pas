@@ -10,7 +10,6 @@ uses
 type
   TSpreadsheetForm = class(TForm)
     GroupBox1: TGroupBox;
-    LabeledEdit1: TLabeledEdit;
     SortAtoZBtn: TBitBtn;
     SortZtoABtn: TBitBtn;
     MainMenu: TMainMenu;
@@ -23,6 +22,7 @@ type
     N1: TMenuItem;
     MM_SaveFile: TMenuItem;
     SaveFileTimer: TTimer;
+    SearchEdit: TButtonedEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -46,6 +46,7 @@ type
       var CanSelect: Boolean);
     procedure SortAtoZBtnClick(Sender: TObject);
     procedure SortZtoABtnClick(Sender: TObject);
+    procedure SearchEditRightButtonClick(Sender: TObject);
   private
   public
   end;
@@ -58,6 +59,11 @@ implementation
 uses UIHelpers, AuthForm, AboutForm, PasswordForm;
 
 {$R *.dfm}
+
+procedure TSpreadsheetForm.SearchEditRightButtonClick(Sender: TObject);
+begin
+  ShowMessage('sex');
+end;
 
 procedure TSpreadsheetForm.DataStringGridKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
