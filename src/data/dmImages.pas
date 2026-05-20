@@ -12,6 +12,7 @@ type
     VirtImgListPassword: TVirtualImageList;
     VirtImgListOther: TVirtualImageList;
     VirtImgSorting: TVirtualImageList;
+    VirtImgSearch: TVirtualImageList;
   private
     { Private declarations }
   public
