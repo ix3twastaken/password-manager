@@ -1,8 +1,8 @@
 object SpreadsheetForm: TSpreadsheetForm
   Left = 0
   Top = 0
-  Width = 875
-  Height = 501
+  Width = 880
+  Height = 502
   VertScrollBar.Smooth = True
   VertScrollBar.Visible = False
   AutoScroll = True
@@ -25,14 +25,43 @@ object SpreadsheetForm: TSpreadsheetForm
   OnResize = FormResize
   OnShow = FormShow
   TextHeight = 15
+  object SearchGrid: TStringGrid
+    Left = 0
+    Top = 80
+    Width = 859
+    Height = 362
+    Enabled = False
+    RowCount = 2
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Century Gothic'
+    Font.Style = []
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goTabs, goFixedRowDefAlign]
+    ParentFont = False
+    ScrollBars = ssVertical
+    TabOrder = 2
+    OnKeyDown = SearchGridKeyDown
+    OnMouseDown = SearchGridMouseDown
+    OnSelectCell = SearchGridSelectCell
+    ColWidths = (
+      64
+      227
+      191
+      190
+      156)
+  end
   object GroupBox1: TGroupBox
     Left = 0
     Top = 0
-    Width = 859
+    Width = 864
     Height = 80
     Align = alTop
     TabOrder = 0
     ExplicitTop = -6
+    DesignSize = (
+      864
+      80)
     object SortAtoZBtn: TBitBtn
       Left = 10
       Top = 12
@@ -66,22 +95,30 @@ object SpreadsheetForm: TSpreadsheetForm
       OnClick = SortZtoABtnClick
     end
     object SearchEdit: TButtonedEdit
-      Left = 632
+      AlignWithMargins = True
+      Left = 638
       Top = 12
       Width = 216
       Height = 25
+      Margins.Left = 12
+      Margins.Top = 12
+      Margins.Right = 10
+      Margins.Bottom = 12
+      Anchors = [akTop, akRight]
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
       Font.Name = 'Century Gothic'
       Font.Style = []
       Images = DM.VirtImgSearch
+      LeftButton.ImageIndex = 1
+      LeftButton.Visible = True
       ParentFont = False
-      RightButton.ImageIndex = 6
-      RightButton.ImageName = 'search'
+      RightButton.ImageIndex = 0
       RightButton.Visible = True
       TabOrder = 2
       TextHint = #1055#1086#1080#1089#1082
+      OnChange = SearchEditChange
       OnRightButtonClick = SearchEditRightButtonClick
     end
   end
@@ -90,7 +127,6 @@ object SpreadsheetForm: TSpreadsheetForm
     Top = 80
     Width = 859
     Height = 362
-    Align = alClient
     RowCount = 2
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText

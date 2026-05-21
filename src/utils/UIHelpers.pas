@@ -110,7 +110,7 @@ procedure ClearGrid(Grid: TStringGrid);
 begin
   for var i := 1 to Grid.RowCount - 1 do
     Grid.Rows[i].Clear;
-  Grid.RowCount := 5;
+  Grid.RowCount := 2;
 end;
 
 

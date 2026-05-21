@@ -23,6 +23,7 @@ type
     MM_SaveFile: TMenuItem;
     SaveFileTimer: TTimer;
     SearchEdit: TButtonedEdit;
+    SearchGrid: TStringGrid;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -46,7 +47,14 @@ type
       var CanSelect: Boolean);
     procedure SortAtoZBtnClick(Sender: TObject);
     procedure SortZtoABtnClick(Sender: TObject);
+    procedure SearchEditChange(Sender: TObject);
+    procedure SearchGridSelectCell(Sender: TObject; ACol, ARow: LongInt;
+      var CanSelect: Boolean);
+    procedure SearchGridMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure SearchEditRightButtonClick(Sender: TObject);
+    procedure SearchGridKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
   public
   end;
@@ -60,23 +68,71 @@ uses UIHelpers, AuthForm, AboutForm, PasswordForm;
 
 {$R *.dfm}
 
+procedure TSpreadsheetForm.SearchEditChange(Sender: TObject);
+begin
+  SaveToFile(DataStringGrid);
+  DoSearch(SearchGrid, DataStringGrid, SearchEdit.Text);
+end;
+
 procedure TSpreadsheetForm.SearchEditRightButtonClick(Sender: TObject);
 begin
-  ShowMessage('sex');
+  SearchEdit.Text := '';
+end;
+
+procedure TSpreadsheetForm.SearchGridKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var Row: integer;
+begin
+  Row := SearchGrid.Row;
+  if (Key = VK_RETURN) then // Enter
+    begin
+      if SearchGrid.Col = 3 then
+        begin
+          SaveToFile(DataStringGrid);
+          PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, StrToInt(SearchGrid.Cells[0, Row]));
+        end;
+    end;
+end;
+
+procedure TSpreadsheetForm.SearchGridMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  Col, Row: Integer;
+begin
+  if ssDouble in Shift then
+  begin
+    SearchGrid.MouseToCell(X, Y, Col, Row);
+    Row := SearchGrid.Row;
+    if (Col = 3) and (Row > 0) then
+      begin
+        SaveToFile(DataStringGrid);
+        PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, StrToInt(SearchGrid.Cells[0, Row]));
+      end;
+  end;
+end;
+
+procedure TSpreadsheetForm.SearchGridSelectCell(Sender: TObject; ACol,
+  ARow: LongInt; var CanSelect: Boolean);
+begin
+  if ACol = 3 then
+    SearchGrid.Options := SearchGrid.Options - [goEditing]
+  else
+    SearchGrid.Options := SearchGrid.Options + [goEditing];
 end;
 
 procedure TSpreadsheetForm.DataStringGridKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+var Row: integer;
 begin
+  Row := DataStringGrid.Row;
   if (Key = VK_RETURN) then // Enter
     begin
       if DataStringGrid.Col = 3 then
         begin
           SaveToFile(DataStringGrid);
-          PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, DataStringGrid.Row);
+          PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, StrToInt(DataStringGrid.Cells[0, Row]));
         end;
     end;
-
 end;
 
 procedure TSpreadsheetForm.DataStringGridMouseDown(Sender: TObject;
@@ -87,11 +143,11 @@ begin
   if ssDouble in Shift then
   begin
     DataStringGrid.MouseToCell(X, Y, Col, Row);
-
+    Row := DataStringGrid.Row;
     if (Col = 3) and (Row > 0) then
       begin
         SaveToFile(DataStringGrid);
-        PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, Row);
+        PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, StrToInt(DataStringGrid.Cells[0, Row]));
       end;
   end;
 end;
@@ -124,6 +180,7 @@ procedure TSpreadsheetForm.FormCreate(Sender: TObject);
 begin
   ClearGrid(DataStringGrid);
   SetRowAndColumnNames(DataStringGrid);
+  SetRowAndColumnNames(SearchGrid);
   CalcColWidths(DataStringGrid, SpreadsheetForm);
 end;
 
@@ -152,6 +209,7 @@ end;
 procedure TSpreadsheetForm.FormResize(Sender: TObject);
 begin
   CalcColWidths(DataStringGrid, SpreadsheetForm);
+  CalcColWidths(SearchGrid, SpreadsheetForm);
 end;
 
 

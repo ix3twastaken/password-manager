@@ -3,8 +3,8 @@ unit UserStorage;
 interface
 
 uses System.SysUtils, System.IOUtils, System.Generics.Collections, System.UITypes, 
-     System.Generics.Defaults, UserTypes, Vcl.Grids, SessionManager, FileSystem,
-     Vcl.Dialogs, UIHelpers, Vcl.ExtCtrls, Crypto;
+     System.Generics.Defaults, System.StrUtils, UserTypes, Vcl.Grids,
+     SessionManager, FileSystem, Vcl.Dialogs, UIHelpers, Vcl.ExtCtrls, Crypto;
 
 procedure SaveToFile(Grid: TStringGrid);
 procedure LoadFromFile(Grid: TStringGrid);
@@ -26,6 +26,7 @@ procedure SortTList(
 procedure FileToTList(out List: TList<TUserDataRecord>);
 procedure TListToFile(List: TList<TUserDataRecord>);
 procedure SortGrid(Grid: TStringGrid; Desc: Boolean);
+procedure DoSearch(SearchGrid, Grid: TStringGrid; const Text: ShortString);
 
 
 implementation
@@ -59,7 +60,8 @@ begin
             FillChar(Data, SizeOf(Data), 0);
           end;
 
-        Data.ID := UserID;
+        Data.Key := StrToInt(Grid.Cells[0, Row]);
+        Data.UserID := UserID;
         Data.ServiceName := Grid.Cells[1, Row];
         Data.Login := Grid.Cells[2, Row];
         Data.Note := Grid.Cells[4, Row];
@@ -138,8 +140,13 @@ begin
     Read(DataFile, Data);
 
     PasswdData := GetPassword(Data);
-    PasswdData := TSessionManager.Instance.DecryptData(PasswdData);
-    LabeledEditPasswd.Text := StringOf(PasswdData);
+    if Length(PasswdData) >= NONCE_SIZE then
+      begin
+        PasswdData := TSessionManager.Instance.DecryptData(PasswdData);
+        LabeledEditPasswd.Text := StringOf(PasswdData);
+      end
+    else
+      Exit;
 
   finally
     CloseFile(DataFile);
@@ -358,4 +365,47 @@ begin
   LoadFromFile(Grid); //загрузка из файла
 end;
 
+
+procedure DoSearch(SearchGrid, Grid: TStringGrid; const Text: ShortString);
+var List: TList<TUserDataRecord>;
+    Row, FoundCount: integer;
+begin
+  FoundCount := 1;
+  if Text = '' then
+    begin
+      Grid.Enabled := True;
+      SearchGrid.Enabled := False;
+      SearchGrid.SendToBack;
+      ClearGrid(SearchGrid);
+      Exit;
+    end
+  else
+    begin
+      Grid.Enabled := False;
+      SearchGrid.Enabled := True;
+      SearchGrid.BringToFront;
+      Row := 1;
+
+      FileToTList(List);
+      ClearGrid(SearchGrid);
+      for var i := 0 to List.Count - 1 do
+        begin
+          if (ContainsText(List[i].ServiceName, Text) or
+              ContainsText(List[i].Login, Text) or
+              ContainsText(List[i].Note, Text)) then
+            begin
+              SearchGrid.Cells[0, Row] := IntToStr(List[i].Key);
+              SearchGrid.Cells[1, Row] := List[i].ServiceName;
+              SearchGrid.Cells[2, Row] := List[i].Login;
+              SearchGrid.Cells[3, Row] := '********';
+              SearchGrid.Cells[4, Row] := List[i].Note;
+              Inc(FoundCount);
+              Inc(Row);
+            end;
+        end;
+      SearchGrid.RowCount := FoundCount;
+      Exit;
+    end;
+  SearchGrid.RowCount := FoundCount + 1; // если ничего не найдено
+end;
 end.
