@@ -9,7 +9,8 @@ const
 
 type
   TUserDataRecord = packed record
-    ID: integer;
+    Key: integer;
+    UserID: integer;
     ServiceName: string[255];
     Login: string[255];
     PasswordSize: UInt16;
