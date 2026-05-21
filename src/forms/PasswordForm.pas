@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask,
-  Vcl.ExtCtrls, System.RegularExpressions;
+  Vcl.ExtCtrls, System.RegularExpressions, dmImages;
 
 type
   TPasswdForm = class(TForm)
@@ -31,7 +31,15 @@ uses UIHelpers, TableForm;
 procedure TPasswdForm.DoneBtnClick(Sender: TObject);
 begin
   PasswdFormHide(PasswdForm, SpreadsheetForm, LabeledEditPassword);
+  BtnShowPassword.Images := DM.VirtImgListPassword;
+
+  if LabeledEditPassword.PasswordChar = #0 then
+    begin
+      LabeledEditPassword.PasswordChar := '*';
+      BtnShowPassword.ImageName := 'show';
+    end;
 end;
+
 
 procedure TPasswdForm.LabeledEditPasswordKeyPress(Sender: TObject;
   var Key: Char);
