@@ -245,6 +245,7 @@ begin
   ActivityTimer.Enabled := False;
   SaveFileTimer.Enabled := False;
   ShowError('', AuthorizationForm.ErrorsLabel);
+  SearchEdit.Text := '';
 end;
 
 
