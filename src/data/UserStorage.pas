@@ -27,6 +27,7 @@ procedure FileToTList(out List: TList<TUserDataRecord>);
 procedure TListToFile(List: TList<TUserDataRecord>);
 procedure SortGrid(Grid: TStringGrid; Desc: Boolean);
 procedure DoSearch(SearchGrid, Grid: TStringGrid; const Text: ShortString);
+procedure UpdateSearchRow(SearchGrid, Grid: TStringGrid; RowKey, CurrentRow: integer);
 
 
 implementation
@@ -407,5 +408,32 @@ begin
       Exit;
     end;
   SearchGrid.RowCount := FoundCount + 1; // если ничего не найдено
+end;
+
+
+procedure UpdateSearchRow(SearchGrid, Grid: TStringGrid; RowKey, CurrentRow: integer);
+var
+  List: TList<TUserDataRecord>;
+  Data: TUserDataRecord;
+begin
+  FileToTList(List);
+
+  for var i := 0 to List.Count - 1 do
+    begin
+      if List[i].Key = RowKey then
+        begin
+          Data := List[i];
+
+          Data.ServiceName := SearchGrid.Cells[1, CurrentRow];
+          Data.Login := SearchGrid.Cells[2, CurrentRow];
+          Data.Note := SearchGrid.Cells[4, CurrentRow];
+
+          List[i] := Data;
+          Break;
+        end;
+    end;
+
+  TListToFile(List);
+  LoadFromFile(Grid);
 end;
 end.

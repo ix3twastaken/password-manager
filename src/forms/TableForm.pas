@@ -55,6 +55,8 @@ type
     procedure SearchEditRightButtonClick(Sender: TObject);
     procedure SearchGridKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure SearchGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
+      const Value: string);
   private
   public
   end;
@@ -118,6 +120,14 @@ begin
     SearchGrid.Options := SearchGrid.Options - [goEditing]
   else
     SearchGrid.Options := SearchGrid.Options + [goEditing];
+end;
+
+procedure TSpreadsheetForm.SearchGridSetEditText(Sender: TObject; ACol,
+  ARow: LongInt; const Value: string);
+var Row: integer;
+begin
+  Row := StrToInt(SearchGrid.Cells[0, ARow]);
+  UpdateSearchRow(SearchGrid, DataStringGrid, Row, ARow);
 end;
 
 procedure TSpreadsheetForm.DataStringGridKeyDown(Sender: TObject; var Key: Word;

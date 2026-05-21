@@ -44,6 +44,7 @@ object SpreadsheetForm: TSpreadsheetForm
     OnKeyDown = SearchGridKeyDown
     OnMouseDown = SearchGridMouseDown
     OnSelectCell = SearchGridSelectCell
+    OnSetEditText = SearchGridSetEditText
     ColWidths = (
       64
       227
@@ -58,7 +59,6 @@ object SpreadsheetForm: TSpreadsheetForm
     Height = 80
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
     DesignSize = (
       864
       80)
