@@ -26,11 +26,12 @@ function Decrypt(
   const AAD: TBytes = nil
 ): TBytes;
 
+const
+  NONCE_SIZE = crypto_aead_xchacha20poly1305_ietf_NPUBBYTES;
 
 implementation
 
-const
-  NONCE_SIZE = crypto_aead_xchacha20poly1305_ietf_NPUBBYTES;
+
 
 procedure DeriveMasterKey(const Password: AnsiString; const Salt: array of Byte; out Key: TBytes);
 begin
