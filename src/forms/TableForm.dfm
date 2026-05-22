@@ -76,6 +76,7 @@ object SpreadsheetForm: TSpreadsheetForm
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      TabStop = False
       OnClick = SortAtoZBtnClick
     end
     object SortZtoABtn: TBitBtn
@@ -92,6 +93,7 @@ object SpreadsheetForm: TSpreadsheetForm
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
+      TabStop = False
       OnClick = SortZtoABtnClick
     end
     object SearchEdit: TButtonedEdit
@@ -104,6 +106,7 @@ object SpreadsheetForm: TSpreadsheetForm
       Margins.Top = 12
       Margins.Right = 10
       Margins.Bottom = 12
+      TabStop = False
       Anchors = [akTop, akRight]
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
