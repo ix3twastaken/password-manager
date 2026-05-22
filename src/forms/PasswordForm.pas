@@ -47,6 +47,20 @@ begin
   if Key = #8 then
     Exit;
 
+  if Key = #13 then
+    begin
+      PasswdFormHide(PasswdForm, SpreadsheetForm, LabeledEditPassword);
+      BtnShowPassword.Images := DM.VirtImgListPassword;
+
+      if LabeledEditPassword.PasswordChar = #0 then
+        begin
+          LabeledEditPassword.PasswordChar := '*';
+          BtnShowPassword.ImageName := 'show';
+        end;
+
+      Exit;
+    end;
+
   if not CharInSet(Key, ['A'..'Z', 'a'..'z', '0'..'9',
     '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=']) then
     Key := #0;
