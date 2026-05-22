@@ -13,6 +13,7 @@ type
     VirtImgListOther: TVirtualImageList;
     VirtImgSorting: TVirtualImageList;
     VirtImgSearch: TVirtualImageList;
+    VirtImgStart: TVirtualImageList;
   private
     { Private declarations }
   public
