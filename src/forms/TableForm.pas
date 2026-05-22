@@ -175,7 +175,7 @@ end;
 procedure TSpreadsheetForm.DataStringGridSetEditText(Sender: TObject; ACol,
   ARow: LongInt; const Value: string);
 begin
-  AutoAddRow(DataStringGrid, ARow);
+  AutoAddRow(Self, DataStringGrid, ARow);
 end;
 
 

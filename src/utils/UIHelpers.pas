@@ -11,7 +11,7 @@ procedure SwitchForms(FormToShow: TForm; FormToHide: TForm);
 procedure ShowError(const ErrorMsg: string; ErrLabel: TLabel);
 procedure ClearLabeledEdits(const Labeles: array of TLabeledEdit);
 procedure SetRowAndColumnNames(Grid: TStringGrid);
-procedure AutoAddRow(Grid: TStringGrid; CurrentRow: LongInt);
+procedure AutoAddRow(Form: TForm; Grid: TStringGrid; CurrentRow: LongInt);
 procedure ClearGrid(Grid: TStringGrid);
 procedure PasswdFormShow(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit; CurrentRow: LongInt);
 procedure PasswdFormHide(PasswdForm: TForm; ParentForm: TForm; LabeledEditPasswd: TLabeledEdit);
@@ -47,21 +47,57 @@ begin
 end;
 
 
-procedure CalcColWidths(Grid: TStringGrid; Form: TForm);
-const FirstCol = 24;
-var WindowWidth, WindowHeight, ColumnCount: integer;
+function IsVerticalScrollVisible(Grid: TStringGrid): Boolean;
+var
+  Info: TScrollInfo;
 begin
-  Grid.ColWidths[0] := FirstCol;
-  WindowWidth := Form.ClientWidth;
-  WindowHeight := Form.ClientHeight;
-  ColumnCount := Grid.ColCount - 1;
-  Grid.Width := WindowWidth;
-  Grid.Height := WindowHeight - 105; //105 - высота GroupBox над Grid
+  Info.cbSize := SizeOf(Info);
+  Info.fMask := SIF_ALL;
 
-  for var i := 1 to ColumnCount do
-    Grid.ColWidths[i] := ((WindowWidth - FirstCol) div ColumnCount)-2;
+  GetScrollInfo(Grid.Handle, SB_VERT, Info);
+
+  Result := Info.nMax > Integer(Info.nPage);
 end;
 
+
+procedure CalcColWidths(Grid: TStringGrid; Form: TForm);
+const
+  FirstCol = 24;
+var
+  AvailableWidth: Integer;
+  ScrollWidth: Integer;
+  ResizableCols: Integer;
+  ColWidth: Integer;
+  Remainder: Integer;
+begin
+  Grid.ColWidths[0] := FirstCol;
+
+  Grid.Width := Form.ClientWidth;
+  Grid.Height := Form.ClientHeight - 80;
+
+  if IsVerticalScrollVisible(Grid) then
+    ScrollWidth := GetSystemMetrics(SM_CXVSCROLL) - 17
+  else
+    ScrollWidth := 0;
+
+  ResizableCols := Grid.ColCount - 1;
+
+  AvailableWidth :=
+    Grid.ClientWidth
+    - FirstCol
+    - ScrollWidth
+    - (ResizableCols * Grid.GridLineWidth)
+    - 1;
+
+  ColWidth := AvailableWidth div ResizableCols;
+  Remainder := AvailableWidth mod ResizableCols;
+
+  for var i := 1 to ResizableCols do
+    Grid.ColWidths[I] := ColWidth;
+
+  Grid.ColWidths[ResizableCols] :=
+    Grid.ColWidths[ResizableCols] + Remainder;
+end;
 
 procedure SwitchForms(FormToShow: TForm; FormToHide: TForm);
 begin
@@ -95,13 +131,14 @@ begin
 end;
 
 
-procedure AutoAddRow(Grid: TStringGrid; CurrentRow: LongInt);
+procedure AutoAddRow(Form: TForm; Grid: TStringGrid; CurrentRow: LongInt);
 begin
   if CurrentRow = Grid.Rowcount - 1 then
     begin
       Grid.RowCount := Grid.RowCount + 1;
       Grid.Cells[3, CurrentRow] := '********';
       SetRowAndColumnNames(Grid);
+      CalcColWidths(Grid, Form);
     end;
 end;
 

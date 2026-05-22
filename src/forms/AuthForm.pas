@@ -59,6 +59,7 @@ begin
     SpreadsheetForm.SaveFileTimer.Enabled := True;
     ClearLabeledEdits([LabeledEditLogin, LabeledEditPassword]);
     LoadFromFile(SpreadsheetForm.DataStringGrid);
+    CalcColWidths(SpreadsheetForm.DataStringGrid, SpreadsheetForm);
 end;
 
 
