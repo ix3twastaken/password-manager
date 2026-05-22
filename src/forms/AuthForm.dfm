@@ -14,6 +14,8 @@ object AuthorizationForm: TAuthorizationForm
   Font.Style = []
   Position = poScreenCenter
   OnClick = BtnShowPasswordClick
+  OnClose = FormClose
+  OnCreate = FormCreate
   OnDestroy = FormDestroy
   TextHeight = 15
   object Label1: TLabel

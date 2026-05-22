@@ -19,18 +19,20 @@ uses
   SessionManager in '..\core\SessionManager.pas',
   UserStorage in '..\data\UserStorage.pas',
   UserTypes in '..\data\UserTypes.pas',
-  PasswordForm in '..\forms\PasswordForm.pas' {PasswdForm};
+  PasswordForm in '..\forms\PasswordForm.pas' {PasswdForm},
+  WelcomeForm in '..\forms\WelcomeForm.pas' {FormWelcome};
 
 {$R *.res}
 
 begin
-
   if sodium_init < 0 then
     raise Exception.Create('libsodium не инициализировалась');
 
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   TStyleManager.TrySetStyle('Windows11 Modern Light');
+  Application.ShowMainForm := False;
+  Application.CreateForm(TFormWelcome, FormWelcome);
   Application.CreateForm(TAuthorizationForm, AuthorizationForm);
   Application.CreateForm(TRegistrationForm, RegistrationForm);
   Application.CreateForm(TSpreadsheetForm, SpreadsheetForm);
@@ -38,6 +40,4 @@ begin
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TPasswdForm, PasswdForm);
   Application.Run;
-
-
 end.

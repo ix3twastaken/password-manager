@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   System.RegularExpressions, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
-  Vcl.Buttons, dmImages, SessionManager, UserStorage;
+  Vcl.Buttons, dmImages, SessionManager, UserStorage, FileSystem, WelcomeForm;
 
 type
   TAuthorizationForm = class(TForm)
@@ -24,8 +24,12 @@ type
     procedure LabeledEditLoginKeyPress(Sender: TObject; var Key: Char);
     procedure LabeledEditPasswordKeyPress(Sender: TObject; var Key: Char);
     procedure FormDestroy(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
   public
+  protected
+    procedure CreateParams(var Params: TCreateParams); override;
   end;
 
 var
@@ -36,6 +40,13 @@ implementation
 uses RegisterForm, UIHelpers, TableForm, PasswordService, Crypto;
 
 {$R *.dfm}
+
+procedure TAuthorizationForm.CreateParams(var Params: TCreateParams);
+begin
+  inherited CreateParams(Params);
+  Params.Style := Params.Style and not WS_VISIBLE;
+end;
+
 
 procedure TAuthorizationForm.BtnShowPasswordClick(Sender: TObject);
 begin
@@ -62,6 +73,23 @@ begin
     CalcColWidths(SpreadsheetForm.DataStringGrid, SpreadsheetForm);
 end;
 
+
+procedure TAuthorizationForm.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Application.Terminate;
+end;
+
+procedure TAuthorizationForm.FormCreate(Sender: TObject);
+var Path: string;
+begin
+  Self.Hide;
+  Path := CreateDirectory('users.dat');
+  if FileExists(Path) then
+    Self.Show
+  else
+    FormWelcome.Show;
+end;
 
 procedure TAuthorizationForm.FormDestroy(Sender: TObject);
 begin
