@@ -160,9 +160,6 @@ object SpreadsheetForm: TSpreadsheetForm
     end
     object MM_Profile: TMenuItem
       Caption = #1055#1088#1086#1092#1080#1083#1100
-      object MM_ChangePassword: TMenuItem
-        Caption = #1057#1084#1077#1085#1072' '#1087#1072#1088#1086#1083#1103
-      end
       object MM_Exit: TMenuItem
         Caption = #1042#1099#1093#1086#1076
         OnClick = MM_ExitClick

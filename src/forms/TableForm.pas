@@ -15,7 +15,6 @@ type
     MainMenu: TMainMenu;
     MM_About: TMenuItem;
     MM_Profile: TMenuItem;
-    MM_ChangePassword: TMenuItem;
     MM_Exit: TMenuItem;
     ActivityTimer: TTimer;
     DataStringGrid: TStringGrid;
