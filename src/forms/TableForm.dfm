@@ -6,7 +6,7 @@ object SpreadsheetForm: TSpreadsheetForm
   VertScrollBar.Smooth = True
   VertScrollBar.Visible = False
   AutoScroll = True
-  Caption = 'Password Manager'
+  Caption = #1052#1077#1085#1077#1076#1078#1077#1088' '#1087#1072#1088#1086#1083#1077#1081
   Color = clBtnFace
   Constraints.MinHeight = 360
   Constraints.MinWidth = 640
