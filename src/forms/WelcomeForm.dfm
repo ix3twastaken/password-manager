@@ -621,7 +621,6 @@ object FormWelcome: TFormWelcome
     Width = 337
     Height = 218
     TabOrder = 2
-    Visible = False
   end
   object StartBtn: TBitBtn
     AlignWithMargins = True
@@ -644,6 +643,7 @@ object FormWelcome: TFormWelcome
     Images = DM.VirtImgStart
     ParentFont = False
     TabOrder = 0
+    TabStop = False
     OnClick = StartBtnClick
   end
   object Panel1: TPanel
