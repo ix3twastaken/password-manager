@@ -23,6 +23,7 @@ type
     Label3: TLabel;
     ErrorsLabel: TLabel;
     BackToAuthBtn: TBitBtn;
+    Label5: TLabel;
     procedure BtnShowPassword1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure CreateProfileBtnClick(Sender: TObject);

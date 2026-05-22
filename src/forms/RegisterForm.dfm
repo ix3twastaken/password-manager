@@ -4,8 +4,8 @@ object RegistrationForm: TRegistrationForm
   AutoSize = True
   BorderStyle = bsSingle
   Caption = #1057#1086#1079#1076#1072#1085#1080#1077' '#1087#1088#1086#1092#1080#1083#1103
-  ClientHeight = 330
-  ClientWidth = 603
+  ClientHeight = 375
+  ClientWidth = 605
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object RegistrationForm: TRegistrationForm
   TextHeight = 15
   object Label1: TLabel
     AlignWithMargins = True
-    Left = 136
+    Left = 138
     Top = 10
     Width = 326
     Height = 38
@@ -33,7 +33,7 @@ object RegistrationForm: TRegistrationForm
   end
   object Label2: TLabel
     AlignWithMargins = True
-    Left = 20
+    Left = 22
     Top = 106
     Width = 285
     Height = 139
@@ -55,7 +55,7 @@ object RegistrationForm: TRegistrationForm
     WordWrap = True
   end
   object Label3: TLabel
-    Left = 15
+    Left = 17
     Top = 69
     Width = 214
     Height = 23
@@ -67,9 +67,31 @@ object RegistrationForm: TRegistrationForm
     Font.Style = [fsBold, fsItalic]
     ParentFont = False
   end
+  object Label5: TLabel
+    AlignWithMargins = True
+    Left = 20
+    Top = 325
+    Width = 565
+    Height = 30
+    Margins.Left = 20
+    Margins.Top = 20
+    Margins.Right = 20
+    Margins.Bottom = 20
+    Caption = 
+      #1042#1085#1080#1084#1072#1085#1080#1077'! '#1052#1072#1089#1090#1077#1088'-'#1087#1072#1088#1086#1083#1100' '#1085#1077#1083#1100#1079#1103' '#1074#1086#1089#1089#1090#1072#1085#1086#1074#1080#1090#1100'. '#1045#1089#1083#1080' '#1074#1099' '#1077#1075#1086' '#1079#1072#1073#1091#1076#1077#1090 +
+      #1077', '#1076#1086#1089#1090#1091#1087' '#1082#1086' '#1074#1089#1077#1084' '#1089#1086#1093#1088#1072#1085#1077#1085#1085#1099#1084' '#13#10#1087#1072#1088#1086#1083#1103#1084' '#1073#1091#1076#1077#1090' '#1091#1090#1077#1088#1103#1085' '#1085#1072#1074#1089#1077#1075#1076#1072'. '#1055 +
+      #1086#1078#1072#1083#1091#1081#1089#1090#1072', '#1087#1088#1080#1076#1091#1084#1072#1081#1090#1077' '#1085#1072#1076#1077#1078#1085#1099#1081', '#1085#1086' '#1079#1072#1087#1086#1084#1080#1085#1072#1102#1097#1080#1081#1089#1103' '#1087#1072#1088#1086#1083#1100'.'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Century Gothic'
+    Font.Style = [fsItalic]
+    ParentFont = False
+    StyleElements = [seClient, seBorder]
+  end
   object GroupBox1: TGroupBox
     AlignWithMargins = True
-    Left = 310
+    Left = 312
     Top = 69
     Width = 273
     Height = 241
@@ -214,7 +236,7 @@ object RegistrationForm: TRegistrationForm
     end
   end
   object GeneratePasswordBtn: TButton
-    Left = 8
+    Left = 10
     Top = 252
     Width = 285
     Height = 41
@@ -230,7 +252,7 @@ object RegistrationForm: TRegistrationForm
     OnClick = GeneratePasswordBtnClick
   end
   object BackToAuthBtn: TBitBtn
-    Left = 8
+    Left = 10
     Top = 8
     Width = 25
     Height = 25
