@@ -126,7 +126,7 @@ procedure TSpreadsheetForm.SearchGridSetEditText(Sender: TObject; ACol,
   ARow: LongInt; const Value: string);
 var Row: integer;
 begin
-  Row := StrToInt(SearchGrid.Cells[0, ARow]);
+  TryStrToInt(SearchGrid.Cells[0, ARow], Row);
   UpdateSearchRow(SearchGrid, DataStringGrid, Row, ARow);
 end;
 

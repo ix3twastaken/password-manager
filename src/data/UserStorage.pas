@@ -372,6 +372,7 @@ var List: TList<TUserDataRecord>;
     Row, FoundCount: integer;
 begin
   FoundCount := 1;
+  SearchGrid.Enabled := True;
   if Text = '' then
     begin
       Grid.Enabled := True;
@@ -404,10 +405,17 @@ begin
               Inc(Row);
             end;
         end;
-      SearchGrid.RowCount := FoundCount;
-      Exit;
+
+      if FoundCount <> 1 then
+        SearchGrid.RowCount := FoundCount
+      else
+        begin
+          SearchGrid.RowCount := FoundCount + 1; // если ничего не найдено
+          SearchGrid.Enabled := False;
+        end
     end;
-  SearchGrid.RowCount := FoundCount + 1; // если ничего не найдено
+
+
 end;
 
 
