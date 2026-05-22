@@ -3,7 +3,7 @@ object FormAbout: TFormAbout
   Top = 0
   BorderStyle = bsDialog
   Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
-  ClientHeight = 627
+  ClientHeight = 629
   ClientWidth = 484
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
@@ -193,13 +193,12 @@ object FormAbout: TFormAbout
     Left = 16
     Top = 134
     Width = 433
-    Height = 102
+    Height = 85
     Caption = 
       'Password Manager '#8211' '#1101#1090#1086' '#1087#1088#1086#1089#1090#1086#1077' '#1080' '#1085#1072#1076#1105#1078#1085#1086#1077' '#1087#1088#1080#1083#1086#1078#1077#1085#1080#1077' '#1076#1083#1103' '#13#10#1093#1088#1072#1085#1077 +
       #1085#1080#1103' '#1080' '#1091#1087#1088#1072#1074#1083#1077#1085#1080#1103' '#1087#1072#1088#1086#1083#1103#1084#1080' '#1089' '#1087#1086#1076#1076#1077#1088#1078#1082#1086#1081' '#1096#1080#1092#1088#1086#1074#1072#1085#1080#1103'.'#13#10#1055#1088#1086#1075#1088#1072#1084#1084#1072' '#1087#1086 +
       #1079#1074#1086#1083#1103#1077#1090'  '#1073#1077#1079#1086#1087#1072#1089#1085#1086' '#1089#1086#1093#1088#1072#1085#1103#1090#1100' '#1091#1095#1077#1090#1085#1099#1077' '#1076#1072#1085#1085#1099#1077', '#13#10#1075#1077#1085#1077#1088#1080#1088#1086#1074#1072#1090#1100' '#1089#1083#1086#1078 +
-      #1085#1099#1077' '#1087#1072#1088#1086#1083#1080' '#1080' '#1087#1086#1083#1091#1095#1072#1090#1100' '#1082' '#1085#1080#1084' '#1073#1099#1089#1090#1088#1099#1081' '#1076#1086#1089#1090#1091#1087' '#13#10#1087#1088#1080' '#1085#1077#1086#1073#1093#1086#1076#1080#1084#1086#1089#1090#1080', ' +
-      #1086#1073#1077#1089#1087#1077#1095#1080#1074#1072#1103' '#1074#1099#1089#1086#1082#1080#1081' '#1091#1088#1086#1074#1077#1085#1100' '#1079#1072#1097#1080#1090#1099' '#13#10#1083#1080#1095#1085#1086#1081' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1080'.'
+      #1085#1099#1077' '#1087#1072#1088#1086#1083#1080' '#1080' '#1087#1086#1083#1091#1095#1072#1090#1100' '#1082' '#1085#1080#1084' '#1073#1099#1089#1090#1088#1099#1081' '#1076#1086#1089#1090#1091#1087' '#13#10#1087#1088#1080' '#1085#1077#1086#1073#1093#1086#1076#1080#1084#1086#1089#1090#1080'.'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -209,7 +208,7 @@ object FormAbout: TFormAbout
   end
   object Label3: TLabel
     Left = 16
-    Top = 256
+    Top = 240
     Width = 89
     Height = 23
     Caption = #1051#1080#1094#1077#1085#1079#1080#1103
@@ -222,7 +221,7 @@ object FormAbout: TFormAbout
   end
   object LabelLicense: TLabel
     Left = 16
-    Top = 285
+    Top = 269
     Width = 450
     Height = 68
     Caption = 
@@ -239,7 +238,7 @@ object FormAbout: TFormAbout
   end
   object Label4: TLabel
     Left = 16
-    Top = 424
+    Top = 408
     Width = 254
     Height = 23
     Caption = #1048#1089#1087#1086#1083#1100#1079#1086#1074#1072#1085#1085#1099#1077' '#1088#1077#1089#1091#1088#1089#1099
@@ -251,7 +250,7 @@ object FormAbout: TFormAbout
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 16
+    Left = 17
     Top = 564
     Width = 290
     Height = 23
@@ -1705,7 +1704,7 @@ object FormAbout: TFormAbout
   end
   object Label6: TLabel
     Left = 17
-    Top = 359
+    Top = 343
     Width = 396
     Height = 48
     Caption = 
@@ -1720,7 +1719,7 @@ object FormAbout: TFormAbout
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 17
+    Left = 18
     Top = 524
     Width = 216
     Height = 16
@@ -1734,7 +1733,7 @@ object FormAbout: TFormAbout
   end
   object LinkLabel1: TLinkLabel
     Left = 17
-    Top = 468
+    Top = 469
     Width = 265
     Height = 20
     Caption = 
@@ -1751,7 +1750,7 @@ object FormAbout: TFormAbout
   end
   object LinkLabel2: TLinkLabel
     Left = 17
-    Top = 482
+    Top = 484
     Width = 250
     Height = 20
     Caption = 
@@ -1767,7 +1766,7 @@ object FormAbout: TFormAbout
     OnLinkClick = LinkLabel1LinkClick
   end
   object LinkLabel3: TLinkLabel
-    Left = 16
+    Left = 17
     Top = 593
     Width = 49
     Height = 21
@@ -1778,7 +1777,7 @@ object FormAbout: TFormAbout
     OnLinkClick = LinkLabel1LinkClick
   end
   object LinkLabel4: TLinkLabel
-    Left = 99
+    Left = 100
     Top = 593
     Width = 73
     Height = 21
@@ -1788,7 +1787,7 @@ object FormAbout: TFormAbout
   end
   object LinkLabel5: TLinkLabel
     Left = 17
-    Top = 452
+    Top = 453
     Width = 242
     Height = 20
     Caption = 
@@ -1804,7 +1803,7 @@ object FormAbout: TFormAbout
     OnLinkClick = LinkLabel1LinkClick
   end
   object LinkLabel6: TLinkLabel
-    Left = 17
+    Left = 18
     Top = 537
     Width = 195
     Height = 20
@@ -1821,7 +1820,7 @@ object FormAbout: TFormAbout
     OnLinkClick = LinkLabel1LinkClick
   end
   object LinkLabel7: TLinkLabel
-    Left = 208
+    Left = 209
     Top = 593
     Width = 74
     Height = 21
@@ -1831,7 +1830,7 @@ object FormAbout: TFormAbout
   end
   object LinkLabel8: TLinkLabel
     Left = 17
-    Top = 498
+    Top = 437
     Width = 101
     Height = 20
     Caption = 'Uicons by <a href="https://www.flaticon.com/uicons">Flaticon</a>'
@@ -1842,6 +1841,23 @@ object FormAbout: TFormAbout
     Font.Style = []
     ParentFont = False
     TabOrder = 7
+    OnLinkClick = LinkLabel1LinkClick
+  end
+  object LinkLabel9: TLinkLabel
+    Left = 17
+    Top = 499
+    Width = 159
+    Height = 20
+    Caption = 
+      'Online illustrations by <a href="https://storyset.com/online">St' +
+      'oryset</a>'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Century Gothic'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 8
     OnLinkClick = LinkLabel1LinkClick
   end
 end
