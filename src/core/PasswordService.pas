@@ -7,6 +7,7 @@ uses System.RegularExpressions, System.SysUtils,
      Winapi.Windows, Vcl.Dialogs,
      Vcl.ExtCtrls, BCrypt, Crypto, FileSystem, SessionManager, UserTypes;
 
+function GeneratePassword(const Length: Integer): string;
 function IsUserExists(const Login: string): boolean;
 function CheckUserCredentials(const UsersLogin, Password: string): boolean;
 procedure UserRegistration(const UsersLogin, UsersPassword: string);
@@ -14,6 +15,26 @@ function ValidateRegistration(const password1, password2, login: string): string
 function ValidateAuthorization(const password, login: string): string;
 
 implementation
+
+
+function GeneratePassword(const Length: Integer): string;
+const
+  Charset = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz' +
+            '123456789!@#$%^&*()_+-=';
+var
+  Bytes: TBytes;
+  I: Integer;
+begin
+  SetLength(Bytes, Length);
+
+  if not GetRandomBytes(Bytes) then
+    raise Exception.Create('Failed to get secure random data');
+
+  SetLength(Result, Length);
+
+  for I := 0 to Length - 1 do
+    Result[I + 1] := Charset[(Bytes[I] mod System.Length(Charset)) + 1];
+end;
 
 
 function IsUserExists(const Login: string): boolean;

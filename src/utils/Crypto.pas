@@ -10,7 +10,6 @@ uses System.RegularExpressions, System.SysUtils, System.IOUtils,
 procedure DeriveMasterKey(const Password: AnsiString; const Salt: array of Byte; out Key: TBytes);
 function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
 function GetRandomBytes(var Buffer: TBytes): Boolean;
-function GeneratePassword(const Length: Integer): string;
 function GenerateSalt: TBytes;
 function GenerateNonce: TBytes;
 procedure SecureZero(var Data: TBytes);
@@ -56,26 +55,6 @@ function SystemFunction036(Buffer: Pointer; Length: ULONG): BOOL; stdcall;
 function GetRandomBytes(var Buffer: TBytes): Boolean;
 begin
   Result := SystemFunction036(@Buffer[0], Length(Buffer));
-end;
-
-
-function GeneratePassword(const Length: Integer): string;
-const
-  Charset = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz' +
-            '123456789!@#$%^&*()_+-=';
-var
-  Bytes: TBytes;
-  I: Integer;
-begin
-  SetLength(Bytes, Length);
-
-  if not GetRandomBytes(Bytes) then
-    raise Exception.Create('Failed to get secure random data');
-
-  SetLength(Result, Length);
-
-  for I := 0 to Length - 1 do
-    Result[I + 1] := Charset[(Bytes[I] mod System.Length(Charset)) + 1];
 end;
 
 
