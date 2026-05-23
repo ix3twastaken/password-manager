@@ -2,6 +2,7 @@ object AuthorizationForm: TAuthorizationForm
   Left = 0
   Top = 0
   AutoSize = True
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1040#1074#1090#1086#1088#1080#1079#1072#1094#1080#1103
   ClientHeight = 301

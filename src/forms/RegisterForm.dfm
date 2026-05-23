@@ -2,6 +2,7 @@ object RegistrationForm: TRegistrationForm
   Left = 0
   Top = 0
   AutoSize = True
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1057#1086#1079#1076#1072#1085#1080#1077' '#1087#1088#1086#1092#1080#1083#1103
   ClientHeight = 375

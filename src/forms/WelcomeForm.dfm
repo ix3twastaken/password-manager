@@ -2,6 +2,7 @@ object FormWelcome: TFormWelcome
   Left = 0
   Top = 0
   AutoSize = True
+  BorderIcons = [biSystemMenu, biMinimize]
   Caption = #1044#1086#1073#1088#1086' '#1087#1086#1078#1072#1083#1086#1074#1072#1090#1100
   ClientHeight = 450
   ClientWidth = 342
