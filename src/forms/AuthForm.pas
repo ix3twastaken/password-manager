@@ -86,7 +86,10 @@ begin
   Self.Hide;
   Path := CreateDirectory('users.dat');
   if FileExists(Path) then
-    Self.Show
+    begin
+      Self.Show;
+      Self.ShowInTaskBar := True;
+    end
   else
     FormWelcome.Show;
 end;
