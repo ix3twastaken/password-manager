@@ -12,9 +12,11 @@ type
     LabeledEditPassword: TLabeledEdit;
     BtnShowPassword: TBitBtn;
     DoneBtn: TBitBtn;
+    LinkLabel1: TLinkLabel;
     procedure BtnShowPasswordClick(Sender: TObject);
     procedure DoneBtnClick(Sender: TObject);
     procedure LabeledEditPasswordKeyPress(Sender: TObject; var Key: Char);
+    procedure LinkLabel1Click(Sender: TObject);
   private
   public
   end;
@@ -26,7 +28,7 @@ implementation
 
 {$R *.dfm}
 
-uses UIHelpers, TableForm;
+uses UIHelpers, TableForm, PasswordService;
 
 procedure TPasswdForm.DoneBtnClick(Sender: TObject);
 begin
@@ -64,6 +66,14 @@ begin
   if not CharInSet(Key, ['A'..'Z', 'a'..'z', '0'..'9',
     '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=']) then
     Key := #0;
+end;
+
+procedure TPasswdForm.LinkLabel1Click(Sender: TObject);
+begin
+  repeat
+    LabeledEditPassword.Text := GeneratePassword(16);
+  until TRegEx.IsMatch(LabeledEditPassword.Text,
+  '^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=]).{16,}$'); // Требования к паролю
 end;
 
 procedure TPasswdForm.BtnShowPasswordClick(Sender: TObject);

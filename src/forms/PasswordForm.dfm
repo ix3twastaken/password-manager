@@ -15,6 +15,24 @@ object PasswdForm: TPasswdForm
   Font.Style = []
   Position = poScreenCenter
   TextHeight = 15
+  object LinkLabel1: TLinkLabel
+    Left = 53
+    Top = 68
+    Width = 134
+    Height = 20
+    Cursor = crHandPoint
+    Caption = '<a style="color: rgb(0,255,0)">'#1057#1075#1077#1085#1077#1088#1080#1088#1086#1074#1072#1090#1100' '#1087#1072#1088#1086#1083#1100'</a>'
+    Color = clBtnFace
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Century Gothic'
+    Font.Style = [fsUnderline]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    OnClick = LinkLabel1Click
+  end
   object LabeledEditPassword: TLabeledEdit
     AlignWithMargins = True
     Left = 25
