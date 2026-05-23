@@ -100,16 +100,16 @@ procedure TSpreadsheetForm.SearchGridMouseDown(Sender: TObject;
 var
   Col, Row: Integer;
 begin
-  if ssDouble in Shift then
-  begin
-    SearchGrid.MouseToCell(X, Y, Col, Row);
-    Row := SearchGrid.Row;
-    if (Col = 3) and (Row > 0) then
-      begin
-        SaveToFile(DataStringGrid);
-        PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, StrToInt(SearchGrid.Cells[0, Row]));
-      end;
-  end;
+  if Button = mbLeft then
+    begin
+      SearchGrid.MouseToCell(X, Y, Col, Row);
+      Row := SearchGrid.Row;
+      if (Col = 3) and (Row > 0) then
+        begin
+          SaveToFile(DataStringGrid);
+          PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, StrToInt(SearchGrid.Cells[0, Row]));
+        end;
+    end;
 end;
 
 procedure TSpreadsheetForm.SearchGridSelectCell(Sender: TObject; ACol,
@@ -149,16 +149,16 @@ procedure TSpreadsheetForm.DataStringGridMouseDown(Sender: TObject;
 var
   Col, Row: Integer;
 begin
-  if ssDouble in Shift then
-  begin
-    DataStringGrid.MouseToCell(X, Y, Col, Row);
-    Row := DataStringGrid.Row;
-    if (Col = 3) and (Row > 0) then
-      begin
-        SaveToFile(DataStringGrid);
-        PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, StrToInt(DataStringGrid.Cells[0, Row]));
-      end;
-  end;
+  if Button = mbLeft then
+    begin
+      DataStringGrid.MouseToCell(X, Y, Col, Row);
+      Row := DataStringGrid.Row;
+      if (Col = 3) and (Row > 0) then
+        begin
+          SaveToFile(DataStringGrid);
+          PasswdFormShow(PasswdForm, SpreadsheetForm, PasswdForm.LabeledEditPassword, StrToInt(DataStringGrid.Cells[0, Row]));
+        end;
+    end;
 end;
 
 
