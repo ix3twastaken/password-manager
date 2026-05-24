@@ -57,6 +57,7 @@ type
     procedure SearchGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
       const Value: string);
   private
+     procedure WMSysCommand(var Msg: TWMSysCommand); message WM_SYSCOMMAND;
   public
   end;
 
@@ -68,6 +69,18 @@ implementation
 uses UIHelpers, AuthForm, AboutForm, PasswordForm;
 
 {$R *.dfm}
+
+procedure TSpreadsheetForm.WMSysCommand(var Msg: TWMSysCommand);
+begin
+  inherited;
+
+  if (Msg.CmdType = SC_RESTORE) or (Msg.CmdType = SC_MAXIMIZE) then
+  begin
+    Self.Realign;
+    SearchEdit.Invalidate;
+  end;
+end;
+
 
 procedure TSpreadsheetForm.SearchEditChange(Sender: TObject);
 begin
