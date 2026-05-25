@@ -18,7 +18,7 @@ type
     MM_Exit: TMenuItem;
     ActivityTimer: TTimer;
     DataStringGrid: TStringGrid;
-    N1: TMenuItem;
+    MM_File: TMenuItem;
     MM_SaveFile: TMenuItem;
     SaveFileTimer: TTimer;
     SearchEdit: TButtonedEdit;

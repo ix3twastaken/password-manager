@@ -15,10 +15,10 @@ type
     LabeledEditLogin: TLabeledEdit;
     LabeledEditPassword: TLabeledEdit;
     Button2: TButton;
-    LinkLabel1: TLinkLabel;
+    LinkLabelRegister: TLinkLabel;
     BtnShowPassword: TBitBtn;
     ErrorsLabel: TLabel;
-    procedure LinkLabel1Click(Sender: TObject);
+    procedure LinkLabelRegisterClick(Sender: TObject);
     procedure BtnShowPasswordClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure LabeledEditLoginKeyPress(Sender: TObject; var Key: Char);
@@ -66,11 +66,11 @@ begin
     end
   else
     SwitchForms(SpreadsheetForm, AuthorizationForm);
-    SpreadsheetForm.ActivityTimer.Enabled := True;
-    SpreadsheetForm.SaveFileTimer.Enabled := True;
     ClearLabeledEdits([LabeledEditLogin, LabeledEditPassword]);
     LoadFromFile(SpreadsheetForm.DataStringGrid);
     CalcColWidths(SpreadsheetForm.DataStringGrid, SpreadsheetForm);
+    SpreadsheetForm.ActivityTimer.Enabled := True;
+    SpreadsheetForm.SaveFileTimer.Enabled := True;
 end;
 
 
@@ -121,7 +121,7 @@ begin
 end;
 
 
-procedure TAuthorizationForm.LinkLabel1Click(Sender: TObject);
+procedure TAuthorizationForm.LinkLabelRegisterClick(Sender: TObject);
 begin
   SwitchForms(RegistrationForm, AuthorizationForm);
 end;

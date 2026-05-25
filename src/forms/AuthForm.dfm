@@ -130,7 +130,7 @@ object AuthorizationForm: TAuthorizationForm
       TabOrder = 2
       OnClick = Button2Click
     end
-    object LinkLabel1: TLinkLabel
+    object LinkLabelRegister: TLinkLabel
       Left = 116
       Top = 123
       Width = 104
@@ -146,7 +146,7 @@ object AuthorizationForm: TAuthorizationForm
       ParentColor = False
       ParentFont = False
       TabOrder = 3
-      OnClick = LinkLabel1Click
+      OnClick = LinkLabelRegisterClick
     end
     object BtnShowPassword: TBitBtn
       Left = 195

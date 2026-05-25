@@ -59,6 +59,7 @@ object SpreadsheetForm: TSpreadsheetForm
     Height = 80
     Align = alTop
     TabOrder = 0
+    ExplicitTop = -6
     DesignSize = (
       864
       80)
@@ -153,7 +154,7 @@ object SpreadsheetForm: TSpreadsheetForm
   end
   object MainMenu: TMainMenu
     Left = 808
-    object N1: TMenuItem
+    object MM_File: TMenuItem
       Caption = #1060#1072#1081#1083
       object MM_SaveFile: TMenuItem
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100

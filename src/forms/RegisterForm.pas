@@ -76,17 +76,15 @@ begin
     UserRegistration(LabeledEditLogin.Text, LabeledEditPassword1.Text);
     ClearLabeledEdits([LabeledEditLogin, LabeledEditPassword1,
                                          LabeledEditPassword2]);
-    if Application.MessageBox(
+    Application.MessageBox(
       'Регистрация завершена успешно!' + #13#10 +
       'Нажмите OK, чтобы начать работу.',
       'Успешная регистрация',
-      MB_OK or MB_ICONINFORMATION
-    ) = IDOK then
-    begin
-      SwitchForms(SpreadsheetForm, RegistrationForm);
-      SpreadsheetForm.ActivityTimer.Enabled := True;
-      SpreadsheetForm.SaveFileTimer.Enabled := True;
-    end;
+      MB_OK or MB_ICONINFORMATION);
+
+    SwitchForms(SpreadsheetForm, RegistrationForm);
+    SpreadsheetForm.ActivityTimer.Enabled := True;
+    SpreadsheetForm.SaveFileTimer.Enabled := True;
 end;
 
 
