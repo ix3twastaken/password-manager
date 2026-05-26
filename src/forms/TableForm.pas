@@ -56,6 +56,7 @@ type
       Shift: TShiftState);
     procedure SearchGridSetEditText(Sender: TObject; ACol, ARow: LongInt;
       const Value: string);
+    procedure FormClick(Sender: TObject);
   private
      procedure WMSysCommand(var Msg: TWMSysCommand); message WM_SYSCOMMAND;
   public
@@ -84,12 +85,14 @@ end;
 
 procedure TSpreadsheetForm.SearchEditChange(Sender: TObject);
 begin
+  TSessionManager.Instance.UpdateActivity;
   SaveToFile(DataStringGrid);
   DoSearch(SearchGrid, DataStringGrid, SearchEdit.Text);
 end;
 
 procedure TSpreadsheetForm.SearchEditRightButtonClick(Sender: TObject);
 begin
+  TSessionManager.Instance.UpdateActivity;
   SearchEdit.Text := '';
 end;
 
@@ -97,6 +100,7 @@ procedure TSpreadsheetForm.SearchGridKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var Row: integer;
 begin
+  TSessionManager.Instance.UpdateActivity;
   Row := SearchGrid.Row;
   if (Key = VK_RETURN) then // Enter
     begin
@@ -113,6 +117,7 @@ procedure TSpreadsheetForm.SearchGridMouseDown(Sender: TObject;
 var
   Col, Row: Integer;
 begin
+  TSessionManager.Instance.UpdateActivity;
   if Button = mbLeft then
     begin
       SearchGrid.MouseToCell(X, Y, Col, Row);
@@ -128,6 +133,7 @@ end;
 procedure TSpreadsheetForm.SearchGridSelectCell(Sender: TObject; ACol,
   ARow: LongInt; var CanSelect: Boolean);
 begin
+  TSessionManager.Instance.UpdateActivity;
   if ACol = 3 then
     SearchGrid.Options := SearchGrid.Options - [goEditing]
   else
@@ -146,6 +152,7 @@ procedure TSpreadsheetForm.DataStringGridKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var Row: integer;
 begin
+  TSessionManager.Instance.UpdateActivity;
   Row := DataStringGrid.Row;
   if (Key = VK_RETURN) then // Enter
     begin
@@ -162,6 +169,7 @@ procedure TSpreadsheetForm.DataStringGridMouseDown(Sender: TObject;
 var
   Col, Row: Integer;
 begin
+  TSessionManager.Instance.UpdateActivity;
   if Button = mbLeft then
     begin
       DataStringGrid.MouseToCell(X, Y, Col, Row);
@@ -190,6 +198,11 @@ begin
   AutoAddRow(Self, DataStringGrid, ARow);
 end;
 
+
+procedure TSpreadsheetForm.FormClick(Sender: TObject);
+begin
+  TSessionManager.Instance.UpdateActivity;
+end;
 
 procedure TSpreadsheetForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -230,6 +243,7 @@ end;
 
 procedure TSpreadsheetForm.FormResize(Sender: TObject);
 begin
+  TSessionManager.Instance.UpdateActivity;
   CalcColWidths(DataStringGrid, SpreadsheetForm);
   CalcColWidths(SearchGrid, SpreadsheetForm);
 end;

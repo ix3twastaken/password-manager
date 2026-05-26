@@ -17,6 +17,7 @@ object SpreadsheetForm: TSpreadsheetForm
   Font.Style = []
   Menu = MainMenu
   Position = poScreenCenter
+  OnClick = FormClick
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
@@ -59,7 +60,6 @@ object SpreadsheetForm: TSpreadsheetForm
     Height = 80
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
     DesignSize = (
       864
       80)
