@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.StdCtrls, Vcl.Mask,
-  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Menus, SessionManager, UserStorage, dmImages;
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Menus, Vcl.HtmlHelpViewer, SessionManager,
+  UserStorage, dmImages;
 
 type
   TSpreadsheetForm = class(TForm)
@@ -67,7 +68,7 @@ var
 
 implementation
 
-uses UIHelpers, AuthForm, AboutForm, PasswordForm;
+uses UIHelpers, AuthForm, PasswordForm;
 
 {$R *.dfm}
 
@@ -212,7 +213,13 @@ end;
 
 
 procedure TSpreadsheetForm.FormCreate(Sender: TObject);
+var HelpPath: string;
 begin
+  HelpPath := ExtractFilePath(Application.ExeName) + 'PasswordManagerHelp.chm';
+  if FileExists(HelpPath) then
+    Application.HelpFile := HelpPath
+  else
+    ShowMessage('Файл справки не найден: ' + HelpPath);
   ClearGrid(DataStringGrid);
   SetRowAndColumnNames(DataStringGrid);
   SetRowAndColumnNames(SearchGrid);
@@ -258,8 +265,10 @@ end;
 
 procedure TSpreadsheetForm.MM_AboutClick(Sender: TObject);
 begin
-  FormAbout.Show;
-  FormAbout.ShowInTaskBar := True;
+  if FileExists(Application.HelpFile) then
+    Application.HelpCommand(HELP_FINDER, 0)
+  else
+    ShowMessage('Файл справки не найден!');
 end;
 
 
@@ -301,8 +310,6 @@ procedure TSpreadsheetForm.ActivityTimerTimer(Sender: TObject);
 begin
   if not TSessionManager.Instance.IsSessionActive then
     begin
-      if FormAbout.Visible then
-        FormAbout.Hide;
       SaveToFile(DataStringGrid);
       ActivityTimer.Enabled := False;
       SaveFileTimer.Enabled := False;
