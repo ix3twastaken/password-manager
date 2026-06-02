@@ -14,7 +14,6 @@ object AuthorizationForm: TAuthorizationForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
-  OnClick = BtnShowPasswordClick
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy

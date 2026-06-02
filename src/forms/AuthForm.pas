@@ -19,13 +19,13 @@ type
     BtnShowPassword: TBitBtn;
     ErrorsLabel: TLabel;
     procedure LinkLabelRegisterClick(Sender: TObject);
-    procedure BtnShowPasswordClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure LabeledEditLoginKeyPress(Sender: TObject; var Key: Char);
     procedure LabeledEditPasswordKeyPress(Sender: TObject; var Key: Char);
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BtnShowPasswordClick(Sender: TObject);
   private
   public
   protected
@@ -52,7 +52,6 @@ procedure TAuthorizationForm.BtnShowPasswordClick(Sender: TObject);
 begin
   ShowPassword(LabeledEditPassword, BtnShowPassword);
 end;
-
 
 procedure TAuthorizationForm.Button2Click(Sender: TObject);
 var ErrorMessage: string;
